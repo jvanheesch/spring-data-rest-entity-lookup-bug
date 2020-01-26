@@ -1,10 +1,8 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.ReferenceType;
-import com.fasterxml.jackson.databind.type.TypeBindings;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.fasterxml.jackson.databind.type.TypeModifier;
+import com.fasterxml.jackson.databind.type.*;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import java.lang.reflect.Type;
 
@@ -26,6 +24,18 @@ public class Jdk8TypeModifier extends TypeModifier {
         } else {
             return type;
         }
-        return ReferenceType.upgradeFrom(type, refType);
+        return ReferenceType.upgradeFrom(new OptionalType(), new VerdictType());
+    }
+
+    private static class VerdictType extends SimpleType {
+        protected VerdictType() {
+            super(Verdict.class);
+        }
+    }
+
+    private static class OptionalType extends SimpleType {
+        protected OptionalType() {
+            super(Optional.class);
+        }
     }
 }
