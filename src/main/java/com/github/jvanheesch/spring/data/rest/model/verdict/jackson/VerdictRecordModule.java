@@ -1,18 +1,24 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.deser.ValueInstantiator;
 import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
 import com.fasterxml.jackson.databind.util.NameTransformer;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 
 public class VerdictRecordModule extends SimpleModule {
@@ -21,6 +27,13 @@ public class VerdictRecordModule extends SimpleModule {
         context.addSerializers(new Jdk8Serializers());
         context.addDeserializers(new Jdk8Deserializers());
         context.addTypeModifier(new Jdk8TypeModifier());
+
+        SimpleSerializers serializers = new SimpleSerializers();
+        SimpleDeserializers deserializers = new SimpleDeserializers();
+        serializers.addSerializer(Verdict.class, new VerdictSerializer());
+        deserializers.addDeserializer(Verdict.class, new VerdictDeserializer());
+        context.addSerializers(serializers);
+        context.addDeserializers(deserializers);
     }
 
     static class Jdk8Serializers extends Serializers.Base {
@@ -172,6 +185,36 @@ public class VerdictRecordModule extends SimpleModule {
         @Override
         public VerdictRecord updateReference(VerdictRecord reference, Object contents) {
             return new VerdictRecord((Verdict) contents);
+        }
+    }
+
+    // TODO_JORIS: fix @JsonUnwrapped shit.
+    public static class VerdictSerializer extends JsonSerializer<Verdict> {
+        @Override
+        public void serialize(Verdict value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+            if ("compliant".equals(value.getString())) {
+                gen.writeNumber(1L);
+            } else {
+                gen.writeNull();
+            }
+        }
+    }
+
+    public static class VerdictDeserializer extends StdDeserializer<Verdict> {
+        public VerdictDeserializer() {
+            super(Verdict.class);
+        }
+
+        @Override
+        public Verdict deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+            JsonNode node = jp.getCodec().readTree(jp);
+            Long verdictId = node.longValue();
+
+            if (Long.valueOf(1L).equals(verdictId)) {
+                return new Verdict("Compliant");
+            } else {
+                return new Verdict();
+            }
         }
     }
 }
