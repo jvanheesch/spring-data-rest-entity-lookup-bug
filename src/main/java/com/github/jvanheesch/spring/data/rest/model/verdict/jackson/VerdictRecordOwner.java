@@ -1,15 +1,20 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 import javax.persistence.*;
 
 @Entity
 public class VerdictRecordOwner {
     @Id
     private Long id;
+    @JsonUnwrapped
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord1;
+    @JsonUnwrapped
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord2;
+    @JsonUnwrapped
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord3;
 
