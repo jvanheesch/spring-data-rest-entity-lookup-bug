@@ -21,12 +21,15 @@ import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+/**
+ * TODO_JORIS: JAVADOC!
+ */
 public class VerdictRecordModule extends SimpleModule {
     @Override
     public void setupModule(SetupContext context) {
-        context.addSerializers(new Jdk8Serializers());
-        context.addDeserializers(new Jdk8Deserializers());
-        context.addTypeModifier(new Jdk8TypeModifier());
+        context.addSerializers(new VerdictRecordSerializers());
+        context.addDeserializers(new VerdictRecordDeserializers());
+        context.addTypeModifier(new VerdictRecordTypeModifier());
 
         SimpleSerializers serializers = new SimpleSerializers();
         SimpleDeserializers deserializers = new SimpleDeserializers();
@@ -36,7 +39,7 @@ public class VerdictRecordModule extends SimpleModule {
         context.addDeserializers(deserializers);
     }
 
-    static class Jdk8Serializers extends Serializers.Base {
+    static class VerdictRecordSerializers extends Serializers.Base {
         @Override
         public JsonSerializer<?> findReferenceSerializer(
                 SerializationConfig config,
@@ -55,7 +58,7 @@ public class VerdictRecordModule extends SimpleModule {
         }
     }
 
-    static class Jdk8Deserializers extends Deserializers.Base {
+    static class VerdictRecordDeserializers extends Deserializers.Base {
         @Override
         public JsonDeserializer<?> findReferenceDeserializer(
                 ReferenceType refType,
@@ -71,7 +74,7 @@ public class VerdictRecordModule extends SimpleModule {
         }
     }
 
-    static class Jdk8TypeModifier extends TypeModifier {
+    static class VerdictRecordTypeModifier extends TypeModifier {
         @Override
         public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
             if (type.getRawClass() == VerdictRecord.class) {
