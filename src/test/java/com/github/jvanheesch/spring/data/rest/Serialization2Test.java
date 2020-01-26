@@ -20,7 +20,6 @@ import java.io.ByteArrayOutputStream;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class Serialization2Test {
-    @Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
@@ -32,6 +31,7 @@ class Serialization2Test {
     // 4th mag nt in json staan!
     @Test
     void testSerialization() throws Exception {
+        this.objectMapper2 = repositoryRestMvcConfiguration.objectMapper();
         this.objectMapper2 = repositoryRestMvcConfiguration.halObjectMapper();
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("compliant")));
