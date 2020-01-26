@@ -2,8 +2,8 @@ package com.github.jvanheesch.spring.data.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.Optional;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
+import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ class Serialization2Test {
     @Test
     void testSerialization() throws Exception {
         VerdictOptionalOwner verdictOptionalOwner = new VerdictOptionalOwner();
-        verdictOptionalOwner.setVerdict1(Optional.of(new Verdict("compliant")));
+        verdictOptionalOwner.setVerdict1(new Optional(new Verdict("compliant")));
         // TODO_JORIS: het is fine dat deze 1 cases hetzelfde behavior hebben, denk ik.
         // immers: deze case komt niet voor, ofwel zit er een legit verdit in, ofwel geen!
-        verdictOptionalOwner.setVerdict2(Optional.of(new Verdict()));
-        verdictOptionalOwner.setVerdict3(Optional.empty());
+        verdictOptionalOwner.setVerdict2(new Optional(new Verdict()));
+        verdictOptionalOwner.setVerdict3(new Optional());
         verdictOptionalOwner.setVerdict4(null);
         String ser = objectMapper.writeValueAsString(verdictOptionalOwner);
 

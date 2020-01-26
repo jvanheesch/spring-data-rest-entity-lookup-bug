@@ -28,12 +28,12 @@ final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional> {
     // TODO_JORIS snappen
     @Override
     public Optional getNullValue(DeserializationContext ctxt) {
-        return Optional.empty();
+        return new Optional();
     }
 
     @Override
     public Optional referenceValue(Object contents) {
-        return Optional.ofNullable((Verdict) contents);
+        return new Optional((Verdict) contents);
     }
 
     @Override
@@ -43,6 +43,6 @@ final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional> {
 
     @Override
     public Optional updateReference(Optional reference, Object contents) {
-        return Optional.ofNullable((Verdict) contents);
+        return new Optional((Verdict) contents);
     }
 }

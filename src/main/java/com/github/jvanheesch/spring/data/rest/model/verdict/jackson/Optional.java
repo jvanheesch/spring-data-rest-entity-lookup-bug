@@ -27,19 +27,12 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 public final class Optional {
-    private static final Optional EMPTY = new Optional();
+    private Verdict value;
 
-    private final Verdict value;
-
-    private Optional() {
-        this.value = null;
+    public Optional() {
     }
 
-    public static Optional empty() {
-        return EMPTY;
-    }
-
-    private Optional(Verdict value) {
+    public Optional(Verdict value) {
         this.value = value;
     }
 
@@ -47,12 +40,7 @@ public final class Optional {
         return new Optional(value);
     }
 
-    public static Optional ofNullable(Verdict value) {
-        return value == null ? empty() : of(value);
-    }
-
     public Verdict getVerdict() {
         return value;
     }
-
 }
