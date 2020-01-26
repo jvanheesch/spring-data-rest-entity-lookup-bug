@@ -1,7 +1,10 @@
 package com.github.jvanheesch.spring.data.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
 import org.junit.jupiter.api.Test;
@@ -9,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.io.ByteArrayOutputStream;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -26,6 +31,17 @@ class Serialization2Test {
         verdictRecordOwner.setVerdict2(new VerdictRecord(new Verdict()));
         verdictRecordOwner.setVerdict3(new VerdictRecord());
         verdictRecordOwner.setVerdict4(null);
+
+        JsonEncoding encoding = JsonEncoding.UTF8;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JsonGenerator generator = this.objectMapper.getFactory().createGenerator(baos, encoding);
+
+        ObjectWriter objectWriter = this.objectMapper.writer();
+        objectWriter.writeValue(generator, verdictRecordOwner);
+
+        byte[] bytes = baos.toByteArray();
+        System.out.println(new String(bytes));
+
         String ser = objectMapper.writeValueAsString(verdictRecordOwner);
 
         VerdictRecordOwner deser = objectMapper.readValue(ser, VerdictRecordOwner.class);
