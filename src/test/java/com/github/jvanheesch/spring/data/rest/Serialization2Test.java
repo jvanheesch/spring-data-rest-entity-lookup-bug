@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -21,13 +22,17 @@ import java.io.ByteArrayOutputStream;
 class Serialization2Test {
     @Autowired
     private ObjectMapper objectMapper;
-    private ObjectMapper objectMapper2 = Jackson2ObjectMapperBuilder.json().build();
+    @Autowired
+    private RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
+    private ObjectMapper objectMapper2;
+
 
     // TODO_JORIS: het is fine dat cases 2 en 3 hetzelfde behavior hebben, denk ik.
     // immers: enkel de eerste komt voor, en die moet leidden tot null in json.
     // 4th mag nt in json staan!
     @Test
     void testSerialization() throws Exception {
+        this.objectMapper2 = repositoryRestMvcConfiguration.halObjectMapper();
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("compliant")));
         verdictRecordOwner.setVerdictRecord2(new VerdictRecord(new Verdict()));
