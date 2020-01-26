@@ -18,22 +18,22 @@ class Serialization2Test {
 
     @Test
     void testSerialization() throws Exception {
-        VerdictOptionalOwner verdictOptionalOwner = new VerdictOptionalOwner();
-        verdictOptionalOwner.setVerdict1(new VerdictRecord(new Verdict("compliant")));
+        VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
+        verdictRecordOwner.setVerdict1(new VerdictRecord(new Verdict("compliant")));
         // TODO_JORIS: het is fine dat deze 1 cases hetzelfde behavior hebben, denk ik.
         // immers: deze case komt niet voor, ofwel zit er een legit verdit in, ofwel geen!
-        verdictOptionalOwner.setVerdict2(new VerdictRecord(new Verdict()));
-        verdictOptionalOwner.setVerdict3(new VerdictRecord());
-        verdictOptionalOwner.setVerdict4(null);
-        String ser = objectMapper.writeValueAsString(verdictOptionalOwner);
+        verdictRecordOwner.setVerdict2(new VerdictRecord(new Verdict()));
+        verdictRecordOwner.setVerdict3(new VerdictRecord());
+        verdictRecordOwner.setVerdict4(null);
+        String ser = objectMapper.writeValueAsString(verdictRecordOwner);
 
-        VerdictOptionalOwner deser = objectMapper.readValue(ser, VerdictOptionalOwner.class);
+        VerdictRecordOwner deser = objectMapper.readValue(ser, VerdictRecordOwner.class);
 
         System.out.println(ser);
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private static class VerdictOptionalOwner {
+    private static class VerdictRecordOwner {
         private VerdictRecord verdict1;
         private VerdictRecord verdict2;
         private VerdictRecord verdict3;
