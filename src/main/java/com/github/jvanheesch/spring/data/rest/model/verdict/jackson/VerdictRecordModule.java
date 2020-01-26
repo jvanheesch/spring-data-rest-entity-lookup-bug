@@ -9,9 +9,7 @@ import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
@@ -48,13 +46,17 @@ public class VerdictRecordModule extends SimpleModule {
                 TypeSerializer contentTypeSerializer,
                 JsonSerializer<Object> contentValueSerializer
         ) {
-            return VerdictRecord.class.isAssignableFrom(refType.getRawClass())
-                    ? new VerdictRecordSerializer(
-                    refType,
-                    (contentTypeSerializer == null) && config.isEnabled(MapperFeature.USE_STATIC_TYPING),
-                    contentTypeSerializer,
-                    contentValueSerializer)
-                    : null;
+            JsonSerializer<?> jsonSerializer;
+            if (VerdictRecord.class.isAssignableFrom(refType.getRawClass())) {
+                jsonSerializer = new VerdictRecordSerializer(
+                        refType,
+                        (contentTypeSerializer == null) && config.isEnabled(MapperFeature.USE_STATIC_TYPING),
+                        contentTypeSerializer,
+                        contentValueSerializer);
+            } else {
+                jsonSerializer = null;
+            }
+            return jsonSerializer;
         }
     }
 
@@ -151,6 +153,7 @@ public class VerdictRecordModule extends SimpleModule {
             return value.getVerdict();
         }
 
+        // hier moeten we 3x inkomen, once for each verdictrecord !! gebeurt in test, maar slechts 2x in SDR !!!!!
         @Override
         protected Object _getReferencedIfPresent(VerdictRecord value) {
             return value.getVerdict();
