@@ -34,10 +34,10 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
         config.disableDefaultExposure();
     }
 
-    @Bean
-    public Jdk8Module jdk8Module() {
-        return new Jdk8Module();
-    }
+//    @Bean
+//    public Jdk8Module jdk8Module() {
+//        return new Jdk8Module();
+//    }
 
 
     /**
