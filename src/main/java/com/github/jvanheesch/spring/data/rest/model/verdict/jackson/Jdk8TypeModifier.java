@@ -12,19 +12,11 @@ import java.lang.reflect.Type;
 public class Jdk8TypeModifier extends TypeModifier {
     @Override
     public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
-        if (type.isReferenceType() || type.isContainerType()) {
-            return type;
-        }
-        final Class<?> raw = type.getRawClass();
-
-        JavaType refType;
-
-        if (raw == Optional.class) {
-            refType = type.containedTypeOrUnknown(0);
+        if (type.getRawClass() == Optional.class) {
+            return ReferenceType.upgradeFrom(new OptionalType(), new VerdictType());
         } else {
             return type;
         }
-        return ReferenceType.upgradeFrom(new OptionalType(), new VerdictType());
     }
 
     private static class VerdictType extends SimpleType {
