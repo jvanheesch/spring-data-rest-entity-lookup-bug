@@ -36,10 +36,6 @@ public final class Optional {
         this.value = value;
     }
 
-    public static Optional of(Verdict value) {
-        return new Optional(value);
-    }
-
     public Verdict getVerdict() {
         return value;
     }
