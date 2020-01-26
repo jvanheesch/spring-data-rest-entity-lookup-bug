@@ -19,6 +19,7 @@ public class DebugController {
     private final ObjectMapper objectMapper1;
     private final ObjectMapper objectMapper2 = Jackson2ObjectMapperBuilder.json().build();
     private final ObjectMapper objectMapper3;
+    private final ObjectMapper objectMapper4;
     private final VerdictRecordOwnerRepository verdictRecordOwnerRepository;
     private final RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
 
@@ -27,6 +28,7 @@ public class DebugController {
         this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
         this.repositoryRestMvcConfiguration = repositoryRestMvcConfiguration;
         this.objectMapper3 = repositoryRestMvcConfiguration.objectMapper();
+        this.objectMapper4 = repositoryRestMvcConfiguration.halObjectMapper();
     }
 
     @GetMapping("/debug")
@@ -35,9 +37,9 @@ public class DebugController {
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator generator = this.objectMapper3.getFactory().createGenerator(baos, encoding);
+        JsonGenerator generator = this.objectMapper4.getFactory().createGenerator(baos, encoding);
 
-        ObjectWriter objectWriter = this.objectMapper3.writer();
+        ObjectWriter objectWriter = this.objectMapper4.writer();
         objectWriter.writeValue(generator, verdictRecordOwner);
 
         String string = new String(baos.toByteArray());
