@@ -20,7 +20,7 @@ import java.io.ByteArrayOutputStream;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class Serialization2Test {
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper1;
     @Autowired
     private RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
     private ObjectMapper objectMapper2;
@@ -31,7 +31,7 @@ class Serialization2Test {
     // 4th mag nt in json staan!
     @Test
     void testSerialization() throws Exception {
-        this.objectMapper2 = repositoryRestMvcConfiguration.objectMapper();
+        this.objectMapper1 = repositoryRestMvcConfiguration.objectMapper();
         this.objectMapper2 = repositoryRestMvcConfiguration.halObjectMapper();
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("compliant")));
@@ -41,9 +41,9 @@ class Serialization2Test {
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator generator = this.objectMapper2.getFactory().createGenerator(baos, encoding);
+        JsonGenerator generator = this.objectMapper1.getFactory().createGenerator(baos, encoding);
 
-        ObjectWriter objectWriter = this.objectMapper2.writer();
+        ObjectWriter objectWriter = this.objectMapper1.writer();
         objectWriter.writeValue(generator, verdictRecordOwner);
 
         byte[] bytes = baos.toByteArray();
