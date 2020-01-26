@@ -7,37 +7,21 @@ import com.fasterxml.jackson.databind.deser.ValueInstantiator;
 import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 
-
-final class OptionalDeserializer
-    extends ReferenceTypeDeserializer<Optional<?>>
-{
+final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional<?>> {
     private static final long serialVersionUID = 1L;
 
-    /*
-    /**********************************************************
-    /* Life-cycle
-    /**********************************************************
-     */
-
-    /**
-     * @since 2.9
-     */
-    public OptionalDeserializer(JavaType fullType, ValueInstantiator inst,
-            TypeDeserializer typeDeser, JsonDeserializer<?> deser)
-    {
+    public OptionalDeserializer(
+            JavaType fullType,
+            ValueInstantiator inst,
+            TypeDeserializer typeDeser,
+            JsonDeserializer<?> deser
+    ) {
         super(fullType, inst, typeDeser, deser);
     }
 
-    /*
-    /**********************************************************
-    /* Abstract method implementations
-    /**********************************************************
-     */
-
     @Override
     public OptionalDeserializer withResolved(TypeDeserializer typeDeser, JsonDeserializer<?> valueDeser) {
-        return new OptionalDeserializer(_fullType, _valueInstantiator,
-                typeDeser, valueDeser);
+        return new OptionalDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
     }
 
     @Override
@@ -55,12 +39,8 @@ final class OptionalDeserializer
         return reference.get();
     }
 
-    @Override // since 2.9
+    @Override
     public Optional<?> updateReference(Optional<?> reference, Object contents) {
         return Optional.ofNullable(contents);
     }
-
-    // Default ought to be fine:
-//    public Boolean supportsUpdate(DeserializationConfig config) { }
-
 }
