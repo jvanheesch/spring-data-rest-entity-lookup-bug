@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
+import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,8 @@ import java.io.IOException;
 @RestController
 public class DebugController {
     private final ObjectMapper objectMapper;
+    @Autowired
+    VerdictRecordOwnerRepository verdictRecordOwnerRepository;
 
     public DebugController(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -23,11 +27,7 @@ public class DebugController {
 
     @GetMapping("/debug")
     public String test() throws IOException {
-        VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
-        verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("compliant")));
-        verdictRecordOwner.setVerdictRecord2(new VerdictRecord(new Verdict()));
-        verdictRecordOwner.setVerdictRecord3(new VerdictRecord());
-        verdictRecordOwner.setVerdictRecord4(null);
+        VerdictRecordOwner verdictRecordOwner = verdictRecordOwnerRepository.findAll().iterator().next();
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
