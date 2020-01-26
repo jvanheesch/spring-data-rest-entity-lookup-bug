@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.github.jvanheesch.spring.data.rest.model.verdict.MyJdk8Module;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +34,12 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
                 );
         config.disableDefaultExposure();
     }
+
+    @Bean
+    public MyJdk8Module myJdk8Module() {
+        return new MyJdk8Module();
+    }
+
 
     /**
      * https://github.com/spring-projects/spring-data-rest/blob/master/src/main/asciidoc/custom-jackson-deserialization.adoc
