@@ -1,4 +1,4 @@
-package com.github.jvanheesch.spring.data.rest;
+package com.github.jvanheesch.spring.data.rest.model;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -7,25 +7,22 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-class Serialization2Test {
-    @Autowired
-    private ObjectMapper objectMapper;
+@RestController
+public class DebugController {
+    private final ObjectMapper objectMapper;
 
-    // TODO_JORIS: het is fine dat cases 2 en 3 hetzelfde behavior hebben, denk ik.
-    // immers: enkel de eerste komt voor, en die moet leidden tot null in json.
-    // 4th mag nt in json staan!
-    @Test
-    void testSerialization() throws Exception {
+    public DebugController(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    @GetMapping("/debug")
+    public String test() throws IOException {
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("compliant")));
         verdictRecordOwner.setVerdictRecord2(new VerdictRecord(new Verdict()));
@@ -47,5 +44,6 @@ class Serialization2Test {
         VerdictRecordOwner deser = objectMapper.readValue(ser, VerdictRecordOwner.class);
 
         System.out.println(ser);
+        return "abc";
     }
 }
