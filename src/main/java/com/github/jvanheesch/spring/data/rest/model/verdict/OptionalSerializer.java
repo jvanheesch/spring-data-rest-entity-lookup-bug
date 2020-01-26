@@ -10,32 +10,42 @@ import com.fasterxml.jackson.databind.util.NameTransformer;
 public class OptionalSerializer extends ReferenceTypeSerializer<Optional<?>> {
     private static final long serialVersionUID = 1L;
 
-    protected OptionalSerializer(ReferenceType fullType, boolean staticTyping,
-                                 TypeSerializer vts, JsonSerializer<Object> ser) {
+    protected OptionalSerializer(
+            ReferenceType fullType,
+            boolean staticTyping,
+            TypeSerializer vts,
+            JsonSerializer<Object> ser
+    ) {
         super(fullType, staticTyping, vts, ser);
     }
 
-    protected OptionalSerializer(OptionalSerializer base, BeanProperty property,
-                                 TypeSerializer vts, JsonSerializer<?> valueSer, NameTransformer unwrapper,
-                                 Object suppressableValue, boolean suppressNulls) {
-        super(base, property, vts, valueSer, unwrapper,
-                suppressableValue, suppressNulls);
+    protected OptionalSerializer(
+            OptionalSerializer base,
+            BeanProperty property,
+            TypeSerializer vts,
+            JsonSerializer<?> valueSer,
+            NameTransformer unwrapper,
+            Object suppressableValue,
+            boolean suppressNulls
+    ) {
+        super(base, property, vts, valueSer, unwrapper, suppressableValue, suppressNulls);
     }
 
     @Override
-    protected ReferenceTypeSerializer<Optional<?>> withResolved(BeanProperty prop,
-                                                                TypeSerializer vts, JsonSerializer<?> valueSer,
-                                                                NameTransformer unwrapper) {
-        return new OptionalSerializer(this, prop, vts, valueSer, unwrapper,
-                _suppressableValue, _suppressNulls);
+    protected ReferenceTypeSerializer<Optional<?>> withResolved(
+            BeanProperty prop,
+            TypeSerializer vts,
+            JsonSerializer<?> valueSer,
+            NameTransformer unwrapper
+    ) {
+        return new OptionalSerializer(this, prop, vts, valueSer, unwrapper, _suppressableValue, _suppressNulls);
     }
 
     @Override
-    public ReferenceTypeSerializer<Optional<?>> withContentInclusion(Object suppressableValue,
-                                                                     boolean suppressNulls) {
-        return new OptionalSerializer(this, _property, _valueTypeSerializer,
-                _valueSerializer, _unwrapper,
-                suppressableValue, suppressNulls);
+    public ReferenceTypeSerializer<Optional<?>> withContentInclusion(
+            Object suppressableValue,
+            boolean suppressNulls) {
+        return new OptionalSerializer(this, _property, _valueTypeSerializer, _valueSerializer, _unwrapper, suppressableValue, suppressNulls);
     }
 
     @Override
