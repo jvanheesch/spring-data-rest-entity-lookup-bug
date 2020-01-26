@@ -24,6 +24,7 @@ final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional<?>> 
         return new OptionalDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
     }
 
+    // TODO_JORIS snappen
     @Override
     public Optional<?> getNullValue(DeserializationContext ctxt) {
         return Optional.empty();
