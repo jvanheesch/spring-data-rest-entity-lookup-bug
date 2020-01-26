@@ -1,15 +1,11 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
-import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-
 import javax.persistence.*;
 
 @Entity
 public class VerdictRecordOwner {
     @Id
     private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
-    private Verdict verdict;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord1;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -23,14 +19,6 @@ public class VerdictRecordOwner {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Verdict getVerdict() {
-        return verdict;
-    }
-
-    public void setVerdict(Verdict verdict) {
-        this.verdict = verdict;
     }
 
     public VerdictRecord getVerdictRecord1() {
