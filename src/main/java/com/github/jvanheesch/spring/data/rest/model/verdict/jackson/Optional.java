@@ -24,37 +24,39 @@
  */
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
+
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public final class Optional<T> {
-    private static final Optional<?> EMPTY = new Optional<>();
+public final class Optional {
+    private static final Optional EMPTY = new Optional();
 
-    private final T value;
+    private final Verdict value;
 
     private Optional() {
         this.value = null;
     }
 
-    public static <T> Optional<T> empty() {
+    public static Optional empty() {
         @SuppressWarnings("unchecked")
-        Optional<T> t = (Optional<T>) EMPTY;
+        Optional t = EMPTY;
         return t;
     }
 
-    private Optional(T value) {
+    private Optional(Verdict value) {
         this.value = Objects.requireNonNull(value);
     }
 
-    public static <T> Optional<T> of(T value) {
-        return new Optional<>(value);
+    public static Optional of(Verdict value) {
+        return new Optional(value);
     }
 
-    public static <T> Optional<T> ofNullable(T value) {
+    public static Optional ofNullable(Verdict value) {
         return value == null ? empty() : of(value);
     }
 
-    public T get() {
+    public Verdict get() {
         if (value == null) {
             throw new NoSuchElementException("No value present");
         }

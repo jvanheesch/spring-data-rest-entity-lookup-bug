@@ -6,8 +6,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.ValueInstantiator;
 import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional<?>> {
+final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional> {
     private static final long serialVersionUID = 1L;
 
     public OptionalDeserializer(
@@ -26,22 +27,22 @@ final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional<?>> 
 
     // TODO_JORIS snappen
     @Override
-    public Optional<?> getNullValue(DeserializationContext ctxt) {
+    public Optional getNullValue(DeserializationContext ctxt) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<?> referenceValue(Object contents) {
-        return Optional.ofNullable(contents);
+    public Optional referenceValue(Object contents) {
+        return Optional.ofNullable((Verdict) contents);
     }
 
     @Override
-    public Object getReferenced(Optional<?> reference) {
+    public Object getReferenced(Optional reference) {
         return reference.get();
     }
 
     @Override
-    public Optional<?> updateReference(Optional<?> reference, Object contents) {
-        return Optional.ofNullable(contents);
+    public Optional updateReference(Optional reference, Object contents) {
+        return Optional.ofNullable((Verdict) contents);
     }
 }

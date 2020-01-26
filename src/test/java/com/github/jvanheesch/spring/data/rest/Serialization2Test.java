@@ -34,40 +34,40 @@ class Serialization2Test {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private static class VerdictOptionalOwner {
-        private Optional<Verdict> verdict1;
-        private Optional<Verdict> verdict2;
-        private Optional<Verdict> verdict3;
-        private Optional<Verdict> verdict4;
+        private Optional verdict1;
+        private Optional verdict2;
+        private Optional verdict3;
+        private Optional verdict4;
 
-        public Optional<Verdict> getVerdict1() {
+        public Optional getVerdict1() {
             return verdict1;
         }
 
-        public void setVerdict1(Optional<Verdict> verdict1) {
+        public void setVerdict1(Optional verdict1) {
             this.verdict1 = verdict1;
         }
 
-        public Optional<Verdict> getVerdict2() {
+        public Optional getVerdict2() {
             return verdict2;
         }
 
-        public void setVerdict2(Optional<Verdict> verdict2) {
+        public void setVerdict2(Optional verdict2) {
             this.verdict2 = verdict2;
         }
 
-        public Optional<Verdict> getVerdict3() {
+        public Optional getVerdict3() {
             return verdict3;
         }
 
-        public void setVerdict3(Optional<Verdict> verdict3) {
+        public void setVerdict3(Optional verdict3) {
             this.verdict3 = verdict3;
         }
 
-        public Optional<Verdict> getVerdict4() {
+        public Optional getVerdict4() {
             return verdict4;
         }
 
-        public void setVerdict4(Optional<Verdict> verdict4) {
+        public void setVerdict4(Optional verdict4) {
             this.verdict4 = verdict4;
         }
     }
