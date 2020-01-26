@@ -1,7 +1,10 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class VerdictRecordOwner {
     @Id
@@ -12,6 +15,8 @@ public class VerdictRecordOwner {
     private VerdictRecord verdictRecord2;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord3;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private VerdictRecord verdictRecord4;
 
     public Long getId() {
         return id;
@@ -43,5 +48,13 @@ public class VerdictRecordOwner {
 
     public void setVerdictRecord3(VerdictRecord verdictRecord3) {
         this.verdictRecord3 = verdictRecord3;
+    }
+
+    public VerdictRecord getVerdictRecord4() {
+        return verdictRecord4;
+    }
+
+    public void setVerdictRecord4(VerdictRecord verdictRecord4) {
+        this.verdictRecord4 = verdictRecord4;
     }
 }
