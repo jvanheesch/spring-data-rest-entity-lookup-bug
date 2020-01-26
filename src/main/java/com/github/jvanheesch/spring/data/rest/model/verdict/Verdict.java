@@ -1,5 +1,7 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,6 +9,7 @@ import javax.persistence.Id;
 public class Verdict {
     @Id
     private Long id;
+    @JsonProperty("verdict")
     private String string;
 
     public Verdict(String string) {

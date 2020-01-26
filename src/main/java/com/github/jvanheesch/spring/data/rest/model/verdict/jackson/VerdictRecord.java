@@ -1,5 +1,6 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.OneToOne;
 public class VerdictRecord {
     @Id
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Verdict verdict;
 
     public VerdictRecord() {
