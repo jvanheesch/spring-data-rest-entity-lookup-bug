@@ -1,0 +1,13 @@
+jackson: java8:
+undefined/not present   <-> null
+null                    <-> empty optional
+non-null                <-> optional
+
+
+SDR:
+null                    <-> null
+empty optional          <-> {}
+optional                <-> object
+
+lijkt dat ik op t verkeerde level zit.
+maar als ik unwrap, dan is t kaputski ...
