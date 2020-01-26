@@ -20,7 +20,7 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
                         (authorRepository, id) -> authorRepository.findById(Long.valueOf(id))
                 );
         config.disableDefaultExposure();
-         config.withEntityLookup().forValueRepository(VerdictRepository.class, Verdict::getId, VerdictRepository::findById);
+         // config.withEntityLookup().forValueRepository(VerdictRepository.class, Verdict::getId, VerdictRepository::findById);
     }
 
     /**
