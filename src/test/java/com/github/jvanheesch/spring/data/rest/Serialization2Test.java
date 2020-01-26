@@ -22,10 +22,13 @@ class Serialization2Test {
         VerdictOptionalOwner verdictOptionalOwner = new VerdictOptionalOwner();
         verdictOptionalOwner.setVerdict1(Optional.of(new Verdict("compliant")));
         // TODO_JORIS: het is fine dat deze 1 cases hetzelfde behavior hebben, denk ik.
+        // immers: deze case komt niet voor, ofwel zit er een legit verdit in, ofwel geen!
         verdictOptionalOwner.setVerdict2(Optional.of(new Verdict()));
         verdictOptionalOwner.setVerdict3(Optional.empty());
         verdictOptionalOwner.setVerdict4(null);
         String ser = objectMapper.writeValueAsString(verdictOptionalOwner);
+
+        VerdictOptionalOwner deser = objectMapper.readValue(ser, VerdictOptionalOwner.class);
 
         System.out.println(ser);
     }
