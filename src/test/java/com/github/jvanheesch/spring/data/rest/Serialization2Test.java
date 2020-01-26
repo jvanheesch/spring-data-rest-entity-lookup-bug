@@ -2,7 +2,7 @@ package com.github.jvanheesch.spring.data.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jvanheesch.spring.data.rest.model.verdict.Optional;
+import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.Optional;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

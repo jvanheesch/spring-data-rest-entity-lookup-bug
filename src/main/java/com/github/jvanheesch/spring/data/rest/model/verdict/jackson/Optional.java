@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package com.github.jvanheesch.spring.data.rest.model.verdict;
+package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;

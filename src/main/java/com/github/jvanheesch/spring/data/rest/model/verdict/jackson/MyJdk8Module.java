@@ -1,4 +1,4 @@
-package com.github.jvanheesch.spring.data.rest.model.verdict;
+package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
