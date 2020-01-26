@@ -55,9 +55,6 @@ public class Application {
 
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setId(1L);
-        verdictRecordOwner.setVerdictRecord1(verdictRecord1);
-        verdictRecordOwner.setVerdictRecord2(verdictRecord2);
-        verdictRecordOwner.setVerdictRecord3(null);
 
         verdictRecordOwnerRepository.save(verdictRecordOwner);
     }

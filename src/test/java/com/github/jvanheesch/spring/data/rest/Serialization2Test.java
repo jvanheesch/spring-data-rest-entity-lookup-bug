@@ -31,10 +31,6 @@ class Serialization2Test {
     void testSerialization() throws Exception {
         this.objectMapper1 = repositoryRestMvcConfiguration.halObjectMapper();
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
-        verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("compliant")));
-        verdictRecordOwner.setVerdictRecord2(new VerdictRecord(new Verdict()));
-        verdictRecordOwner.setVerdictRecord3(new VerdictRecord());
-        verdictRecordOwner.setVerdictRecord4(null);
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

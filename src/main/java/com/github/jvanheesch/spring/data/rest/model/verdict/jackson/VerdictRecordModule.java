@@ -205,7 +205,7 @@ public class VerdictRecordModule extends SimpleModule {
     public static class VerdictSerializer extends JsonSerializer<Verdict> {
         @Override
         public void serialize(Verdict value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeFieldName("verdict");
+//            gen.writeFieldName("verdict");
 //            gen.writeString("abc");
             if ("compliant".equals(value.getString())) {
                 gen.writeNumber(1L);

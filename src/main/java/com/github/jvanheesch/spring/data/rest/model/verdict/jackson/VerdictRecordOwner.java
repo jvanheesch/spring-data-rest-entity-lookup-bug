@@ -1,6 +1,7 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import javax.persistence.*;
 import java.util.Optional;
@@ -10,18 +11,6 @@ import java.util.Optional;
 public class VerdictRecordOwner {
     @Id
     private Long id;
-    // TODO_JORIS LAZY!
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private VerdictRecord verdictRecord1;
-    // TODO_JORIS LAZY!
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private VerdictRecord verdictRecord2;
-    // TODO_JORIS LAZY!
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private VerdictRecord verdictRecord3;
-    // TODO_JORIS LAZY!
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private VerdictRecord verdictRecord4;
 
     private String string1;
     private String string2;
@@ -36,35 +25,28 @@ public class VerdictRecordOwner {
     }
 
     public VerdictRecord getVerdictRecord1() {
+        Verdict verdict = new Verdict();
+        verdict.setString("compliant");
+
+        VerdictRecord verdictRecord1 = new VerdictRecord();
+        verdictRecord1.setId(1L);
+        verdictRecord1.setVerdict(verdict);
+
         return verdictRecord1;
     }
 
-    public void setVerdictRecord1(VerdictRecord verdictRecord1) {
-        this.verdictRecord1 = verdictRecord1;
-    }
-
     public VerdictRecord getVerdictRecord2() {
+        VerdictRecord verdictRecord2 = new VerdictRecord();
+        verdictRecord2.setId(2L);
         return verdictRecord2;
     }
 
-    public void setVerdictRecord2(VerdictRecord verdictRecord2) {
-        this.verdictRecord2 = verdictRecord2;
-    }
-
     public VerdictRecord getVerdictRecord3() {
-        return verdictRecord3;
-    }
-
-    public void setVerdictRecord3(VerdictRecord verdictRecord3) {
-        this.verdictRecord3 = verdictRecord3;
+        return new VerdictRecord();
     }
 
     public VerdictRecord getVerdictRecord4() {
-        return verdictRecord4;
-    }
-
-    public void setVerdictRecord4(VerdictRecord verdictRecord4) {
-        this.verdictRecord4 = verdictRecord4;
+        return null;
     }
 
     public Optional<String> getString1() {
