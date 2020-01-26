@@ -20,8 +20,9 @@ class Serialization2Test {
     void testSerialization() throws Exception {
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setVerdict1(new VerdictRecord(new Verdict("compliant")));
-        // TODO_JORIS: het is fine dat deze 1 cases hetzelfde behavior hebben, denk ik.
-        // immers: deze case komt niet voor, ofwel zit er een legit verdit in, ofwel geen!
+        // TODO_JORIS: het is fine dat deze 2 cases hetzelfde behavior hebben, denk ik.
+        // immers: enkel de eerste komt voor, en die moet leidden tot null in json.
+        // 4th mag nt in json staan!
         verdictRecordOwner.setVerdict2(new VerdictRecord(new Verdict()));
         verdictRecordOwner.setVerdict3(new VerdictRecord());
         verdictRecordOwner.setVerdict4(null);
