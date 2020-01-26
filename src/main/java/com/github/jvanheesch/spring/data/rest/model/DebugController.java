@@ -28,6 +28,7 @@ public class DebugController {
         this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
         this.repositoryRestMvcConfiguration = repositoryRestMvcConfiguration;
         this.objectMapper3 = repositoryRestMvcConfiguration.objectMapper();
+        // TODO_JORIS nok
         this.objectMapper4 = repositoryRestMvcConfiguration.halObjectMapper();
     }
 
