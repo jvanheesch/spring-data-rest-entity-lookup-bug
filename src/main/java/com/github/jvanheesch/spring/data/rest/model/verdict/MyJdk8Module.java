@@ -6,7 +6,6 @@ import com.fasterxml.jackson.datatype.jdk8.*;
 
 public class MyJdk8Module extends Module
 {
-    protected boolean _cfgHandleAbsentAsNull = false;
 
     @Override
     public void setupModule(SetupContext context) {
@@ -14,11 +13,6 @@ public class MyJdk8Module extends Module
         context.addDeserializers(new Jdk8Deserializers());
         // And to fully support Optionals, need to modify type info:
         context.addTypeModifier(new Jdk8TypeModifier());
-
-        // Allow enabling "treat Optional.empty() like Java nulls"
-        if (_cfgHandleAbsentAsNull) {
-            context.addBeanSerializerModifier(new Jdk8BeanSerializerModifier());
-        }
     }
 
     @Override
