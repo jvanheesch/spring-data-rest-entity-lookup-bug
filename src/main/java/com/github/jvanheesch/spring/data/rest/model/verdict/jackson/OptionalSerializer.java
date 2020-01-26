@@ -50,7 +50,7 @@ public class OptionalSerializer extends ReferenceTypeSerializer<Optional> {
 
     @Override
     protected boolean _isValuePresent(Optional value) {
-        return value.isPresent();
+        return value.getVerdict() != null;
     }
 
     @Override
@@ -60,6 +60,6 @@ public class OptionalSerializer extends ReferenceTypeSerializer<Optional> {
 
     @Override
     protected Object _getReferencedIfPresent(Optional value) {
-        return value.isPresent() ? value.getVerdict() : null;
+        return value.getVerdict() != null ? value.getVerdict() : null;
     }
 }
