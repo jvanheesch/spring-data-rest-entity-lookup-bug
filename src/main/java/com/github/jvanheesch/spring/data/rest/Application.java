@@ -3,9 +3,10 @@ package com.github.jvanheesch.spring.data.rest;
 import com.github.jvanheesch.spring.data.rest.model.Author;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
+import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
-import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordRepository;
+import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +24,7 @@ public class Application {
     @Autowired
     AuthorRepository authorRepository;
     @Autowired
-    VerdictRecordRepository verdictRecordRepository;
+    VerdictRecordOwnerRepository verdictRecordOwnerRepository;
     @Autowired
     VerdictRepository verdictRepository;
 
@@ -50,10 +51,19 @@ public class Application {
         verdict.setString("Compliant");
         Verdict savedVerdict = verdictRepository.save(verdict);
 
-        VerdictRecord verdictRecord = new VerdictRecord();
-        verdictRecord.setId(1L);
-        verdictRecord.setVerdict(savedVerdict);
+        VerdictRecord verdictRecord1 = new VerdictRecord();
+        verdictRecord1.setId(1L);
+        verdictRecord1.setVerdict(savedVerdict);
 
-        verdictRecordRepository.save(verdictRecord);
+        VerdictRecord verdictRecord2 = new VerdictRecord();
+        verdictRecord2.setId(2L);
+
+        VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
+        verdictRecordOwner.setId(1L);
+        verdictRecordOwner.setVerdictRecord1(verdictRecord1);
+        verdictRecordOwner.setVerdictRecord2(verdictRecord2);
+        verdictRecordOwner.setVerdictRecord3(null);
+
+        verdictRecordOwnerRepository.save(verdictRecordOwner);
     }
 }
