@@ -4,11 +4,8 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,11 +15,11 @@ import java.io.IOException;
 @RestController
 public class DebugController {
     private final ObjectMapper objectMapper;
-    @Autowired
-    VerdictRecordOwnerRepository verdictRecordOwnerRepository;
+    private final VerdictRecordOwnerRepository verdictRecordOwnerRepository;
 
-    public DebugController(ObjectMapper objectMapper) {
+    public DebugController(ObjectMapper objectMapper, VerdictRecordOwnerRepository verdictRecordOwnerRepository) {
         this.objectMapper = objectMapper;
+        this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
     }
 
     @GetMapping("/debug")
@@ -36,14 +33,8 @@ public class DebugController {
         ObjectWriter objectWriter = this.objectMapper.writer();
         objectWriter.writeValue(generator, verdictRecordOwner);
 
-        byte[] bytes = baos.toByteArray();
-        System.out.println(new String(bytes));
-
-        String ser = objectMapper.writeValueAsString(verdictRecordOwner);
-
-        VerdictRecordOwner deser = objectMapper.readValue(ser, VerdictRecordOwner.class);
-
-        System.out.println(ser);
-        return "abc";
+        String string = new String(baos.toByteArray());
+        System.out.println(string);
+        return string;
     }
 }
