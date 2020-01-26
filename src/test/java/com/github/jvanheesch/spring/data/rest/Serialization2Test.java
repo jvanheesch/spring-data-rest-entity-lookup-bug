@@ -24,6 +24,9 @@ class Serialization2Test {
         VerdictRecord verdictRecord = new VerdictRecord();
         verdictRecord.setVerdict(new Verdict("v1"));
         verdictRecordOwner.setVerdictRecord1(Optional.of(verdictRecord));
+        verdictRecordOwner.setVerdictRecord2(Optional.of(new VerdictRecord()));
+        verdictRecordOwner.setVerdictRecord3(Optional.empty());
+        verdictRecordOwner.setVerdictRecord4(null);
         String ser = objectMapper.writeValueAsString(verdictRecordOwner);
 
         System.out.println(ser);
@@ -31,23 +34,41 @@ class Serialization2Test {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private static class VerdictRecordOwner {
-        private Optional<VerdictRecord> verdict1;
-        private Optional<VerdictRecord> verdict2;
+        private Optional<VerdictRecord> verdictRecord1;
+        private Optional<VerdictRecord> verdictRecord2;
+        private Optional<VerdictRecord> verdictRecord3;
+        private Optional<VerdictRecord> verdictRecord4;
 
         public Optional<VerdictRecord> getVerdictRecord1() {
-            return verdict1;
+            return verdictRecord1;
         }
 
-        public void setVerdictRecord1(Optional<VerdictRecord> verdict1) {
-            this.verdict1 = verdict1;
+        public void setVerdictRecord1(Optional<VerdictRecord> verdictRecord1) {
+            this.verdictRecord1 = verdictRecord1;
         }
 
         public Optional<VerdictRecord> getVerdictRecord2() {
-            return verdict2;
+            return verdictRecord2;
         }
 
-        public void setVerdictRecord2(Optional<VerdictRecord> verdict2) {
-            this.verdict2 = verdict2;
+        public void setVerdictRecord2(Optional<VerdictRecord> verdictRecord2) {
+            this.verdictRecord2 = verdictRecord2;
+        }
+
+        public Optional<VerdictRecord> getVerdictRecord3() {
+            return verdictRecord3;
+        }
+
+        public void setVerdictRecord3(Optional<VerdictRecord> verdictRecord3) {
+            this.verdictRecord3 = verdictRecord3;
+        }
+
+        public Optional<VerdictRecord> getVerdictRecord4() {
+            return verdictRecord4;
+        }
+
+        public void setVerdictRecord4(Optional<VerdictRecord> verdictRecord4) {
+            this.verdictRecord4 = verdictRecord4;
         }
     }
 }
