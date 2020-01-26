@@ -42,9 +42,7 @@ public class OptionalSerializer extends ReferenceTypeSerializer<Optional> {
     }
 
     @Override
-    public ReferenceTypeSerializer<Optional> withContentInclusion(
-            Object suppressableValue,
-            boolean suppressNulls) {
+    public ReferenceTypeSerializer<Optional> withContentInclusion(Object suppressableValue, boolean suppressNulls) {
         return new OptionalSerializer(this, _property, _valueTypeSerializer, _valueSerializer, _unwrapper, suppressableValue, suppressNulls);
     }
 
