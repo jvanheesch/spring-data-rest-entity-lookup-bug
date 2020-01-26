@@ -15,7 +15,7 @@ import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import java.lang.reflect.Type;
 
-public class MyJdk8Module extends SimpleModule {
+public class VerdictRecordModule extends SimpleModule {
     @Override
     public void setupModule(SetupContext context) {
         context.addSerializers(new Jdk8Serializers());
@@ -32,8 +32,8 @@ public class MyJdk8Module extends SimpleModule {
                 TypeSerializer contentTypeSerializer,
                 JsonSerializer<Object> contentValueSerializer
         ) {
-            return Optional.class.isAssignableFrom(refType.getRawClass())
-                    ? new OptionalSerializer(
+            return VerdictRecord.class.isAssignableFrom(refType.getRawClass())
+                    ? new VerdictRecordSerializer(
                     refType,
                     (contentTypeSerializer == null) && config.isEnabled(MapperFeature.USE_STATIC_TYPING),
                     contentTypeSerializer,
@@ -51,8 +51,8 @@ public class MyJdk8Module extends SimpleModule {
                 TypeDeserializer contentTypeDeserializer,
                 JsonDeserializer<?> contentDeserializer
         ) {
-            return refType.hasRawClass(Optional.class)
-                    ? new OptionalDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
+            return refType.hasRawClass(VerdictRecord.class)
+                    ? new VerdictRecordDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
                     : null;
 
         }
@@ -61,8 +61,8 @@ public class MyJdk8Module extends SimpleModule {
     static class Jdk8TypeModifier extends TypeModifier {
         @Override
         public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
-            if (type.getRawClass() == Optional.class) {
-                return ReferenceType.upgradeFrom(new OptionalType(), new VerdictType());
+            if (type.getRawClass() == VerdictRecord.class) {
+                return ReferenceType.upgradeFrom(new VerdictRecordType(), new VerdictType());
             } else {
                 return type;
             }
@@ -74,17 +74,17 @@ public class MyJdk8Module extends SimpleModule {
             }
         }
 
-        private static class OptionalType extends SimpleType {
-            protected OptionalType() {
-                super(Optional.class);
+        private static class VerdictRecordType extends SimpleType {
+            protected VerdictRecordType() {
+                super(VerdictRecord.class);
             }
         }
     }
 
-    static class OptionalSerializer extends ReferenceTypeSerializer<Optional> {
+    static class VerdictRecordSerializer extends ReferenceTypeSerializer<VerdictRecord> {
         private static final long serialVersionUID = 1L;
 
-        protected OptionalSerializer(
+        protected VerdictRecordSerializer(
                 ReferenceType fullType,
                 boolean staticTyping,
                 TypeSerializer vts,
@@ -93,8 +93,8 @@ public class MyJdk8Module extends SimpleModule {
             super(fullType, staticTyping, vts, ser);
         }
 
-        protected OptionalSerializer(
-                OptionalSerializer base,
+        protected VerdictRecordSerializer(
+                VerdictRecordSerializer base,
                 BeanProperty property,
                 TypeSerializer vts,
                 JsonSerializer<?> valueSer,
@@ -106,40 +106,40 @@ public class MyJdk8Module extends SimpleModule {
         }
 
         @Override
-        protected ReferenceTypeSerializer<Optional> withResolved(
+        protected ReferenceTypeSerializer<VerdictRecord> withResolved(
                 BeanProperty prop,
                 TypeSerializer vts,
                 JsonSerializer<?> valueSer,
                 NameTransformer unwrapper
         ) {
-            return new OptionalSerializer(this, prop, vts, valueSer, unwrapper, _suppressableValue, _suppressNulls);
+            return new VerdictRecordSerializer(this, prop, vts, valueSer, unwrapper, _suppressableValue, _suppressNulls);
         }
 
         @Override
-        public ReferenceTypeSerializer<Optional> withContentInclusion(Object suppressableValue, boolean suppressNulls) {
-            return new OptionalSerializer(this, _property, _valueTypeSerializer, _valueSerializer, _unwrapper, suppressableValue, suppressNulls);
+        public ReferenceTypeSerializer<VerdictRecord> withContentInclusion(Object suppressableValue, boolean suppressNulls) {
+            return new VerdictRecordSerializer(this, _property, _valueTypeSerializer, _valueSerializer, _unwrapper, suppressableValue, suppressNulls);
         }
 
         @Override
-        protected boolean _isValuePresent(Optional value) {
+        protected boolean _isValuePresent(VerdictRecord value) {
             return value.getVerdict() != null;
         }
 
         @Override
-        protected Object _getReferenced(Optional value) {
+        protected Object _getReferenced(VerdictRecord value) {
             return value.getVerdict();
         }
 
         @Override
-        protected Object _getReferencedIfPresent(Optional value) {
+        protected Object _getReferencedIfPresent(VerdictRecord value) {
             return value.getVerdict();
         }
     }
 
-    static class OptionalDeserializer extends ReferenceTypeDeserializer<Optional> {
+    static class VerdictRecordDeserializer extends ReferenceTypeDeserializer<VerdictRecord> {
         private static final long serialVersionUID = 1L;
 
-        public OptionalDeserializer(
+        public VerdictRecordDeserializer(
                 JavaType fullType,
                 ValueInstantiator inst,
                 TypeDeserializer typeDeser,
@@ -149,29 +149,29 @@ public class MyJdk8Module extends SimpleModule {
         }
 
         @Override
-        public OptionalDeserializer withResolved(TypeDeserializer typeDeser, JsonDeserializer<?> valueDeser) {
-            return new OptionalDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
+        public VerdictRecordDeserializer withResolved(TypeDeserializer typeDeser, JsonDeserializer<?> valueDeser) {
+            return new VerdictRecordDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
         }
 
         // TODO_JORIS snappen
         @Override
-        public Optional getNullValue(DeserializationContext ctxt) {
-            return new Optional();
+        public VerdictRecord getNullValue(DeserializationContext ctxt) {
+            return new VerdictRecord();
         }
 
         @Override
-        public Optional referenceValue(Object contents) {
-            return new Optional((Verdict) contents);
+        public VerdictRecord referenceValue(Object contents) {
+            return new VerdictRecord((Verdict) contents);
         }
 
         @Override
-        public Object getReferenced(Optional reference) {
+        public Object getReferenced(VerdictRecord reference) {
             return reference.getVerdict();
         }
 
         @Override
-        public Optional updateReference(Optional reference, Object contents) {
-            return new Optional((Verdict) contents);
+        public VerdictRecord updateReference(VerdictRecord reference, Object contents) {
+            return new VerdictRecord((Verdict) contents);
         }
     }
 }

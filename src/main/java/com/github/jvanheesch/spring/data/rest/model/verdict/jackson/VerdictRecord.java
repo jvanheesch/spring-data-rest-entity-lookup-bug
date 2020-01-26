@@ -2,13 +2,13 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-public final class Optional {
+public final class VerdictRecord {
     private Verdict value;
 
-    public Optional() {
+    public VerdictRecord() {
     }
 
-    public Optional(Verdict value) {
+    public VerdictRecord(Verdict value) {
         this.value = value;
     }
 

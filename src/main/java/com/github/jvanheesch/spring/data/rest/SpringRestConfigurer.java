@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.MyJdk8Module;
+import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordModule;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import org.springframework.context.annotation.Bean;
@@ -34,8 +34,8 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
     }
 
     @Bean
-    public MyJdk8Module myJdk8Module() {
-        return new MyJdk8Module();
+    public VerdictRecordModule myJdk8Module() {
+        return new VerdictRecordModule();
     }
 
 
