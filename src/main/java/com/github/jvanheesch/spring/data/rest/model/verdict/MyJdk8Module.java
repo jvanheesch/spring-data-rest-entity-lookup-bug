@@ -77,6 +77,7 @@ public class MyJdk8Module extends Module
         return this == o;
     }
 
+    // TODO_JORIS rename even tho not necessary
     @Override
     public String getModuleName() {
         return "Jdk8Module";
