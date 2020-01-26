@@ -2,16 +2,13 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class VerdictRecord {
     @Id
     private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
+    @Embedded
     private Verdict verdict;
 
     public VerdictRecord() {

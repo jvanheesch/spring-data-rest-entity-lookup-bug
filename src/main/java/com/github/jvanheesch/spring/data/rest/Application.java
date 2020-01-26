@@ -7,7 +7,6 @@ import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecor
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
-import com.github.jvanheesch.spring.data.rest.repo.VerdictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +24,6 @@ public class Application {
     AuthorRepository authorRepository;
     @Autowired
     VerdictRecordOwnerRepository verdictRecordOwnerRepository;
-    @Autowired
-    VerdictRepository verdictRepository;
 
     @Bean
     public CommonsRequestLoggingFilter requestLoggingFilter() {
@@ -47,13 +44,11 @@ public class Application {
         authorRepository.save(author);
 
         Verdict verdict = new Verdict();
-        verdict.setId(1L);
         verdict.setString("Compliant");
-        Verdict savedVerdict = verdictRepository.save(verdict);
 
         VerdictRecord verdictRecord1 = new VerdictRecord();
         verdictRecord1.setId(1L);
-        verdictRecord1.setVerdict(savedVerdict);
+        verdictRecord1.setVerdict(verdict);
 
         VerdictRecord verdictRecord2 = new VerdictRecord();
         verdictRecord2.setId(2L);

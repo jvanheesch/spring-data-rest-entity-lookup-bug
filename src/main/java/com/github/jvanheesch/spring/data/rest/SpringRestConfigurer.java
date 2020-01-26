@@ -1,9 +1,7 @@
 package com.github.jvanheesch.spring.data.rest;
 
-import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordModule;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
-import com.github.jvanheesch.spring.data.rest.repo.VerdictRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -20,7 +18,6 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
                         (authorRepository, id) -> authorRepository.findById(Long.valueOf(id))
                 );
         config.disableDefaultExposure();
-        config.withEntityLookup().forValueRepository(VerdictRepository.class, Verdict::getId, VerdictRepository::findById);
     }
 
     /**
