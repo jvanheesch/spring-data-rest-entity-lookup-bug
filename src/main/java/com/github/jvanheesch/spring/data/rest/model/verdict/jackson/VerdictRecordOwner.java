@@ -3,6 +3,7 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -21,6 +22,10 @@ public class VerdictRecordOwner {
     // TODO_JORIS LAZY!
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private VerdictRecord verdictRecord4;
+
+    private String string1;
+    private String string2;
+    private String string3;
 
     public Long getId() {
         return id;
@@ -60,5 +65,29 @@ public class VerdictRecordOwner {
 
     public void setVerdictRecord4(VerdictRecord verdictRecord4) {
         this.verdictRecord4 = verdictRecord4;
+    }
+
+    public Optional<String> getString1() {
+        return Optional.ofNullable(string1);
+    }
+
+    public void setString1(String string1) {
+        this.string1 = string1;
+    }
+
+    public Optional<String> getString2() {
+        return Optional.ofNullable(string2);
+    }
+
+    public void setString2(String string2) {
+        this.string2 = string2;
+    }
+
+    public Optional<String> getString3() {
+        return null;
+    }
+
+    public void setString3(String string3) {
+        this.string3 = string3;
     }
 }
