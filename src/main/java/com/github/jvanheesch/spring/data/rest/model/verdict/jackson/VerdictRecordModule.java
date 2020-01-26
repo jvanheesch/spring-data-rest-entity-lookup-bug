@@ -31,12 +31,12 @@ public class VerdictRecordModule extends SimpleModule {
         context.addDeserializers(new VerdictRecordDeserializers());
         context.addTypeModifier(new VerdictRecordTypeModifier());
 
-        SimpleSerializers serializers = new SimpleSerializers();
-        SimpleDeserializers deserializers = new SimpleDeserializers();
-        serializers.addSerializer(Verdict.class, new VerdictSerializer());
-        deserializers.addDeserializer(Verdict.class, new VerdictDeserializer());
-        context.addSerializers(serializers);
-        context.addDeserializers(deserializers);
+//        SimpleSerializers serializers = new SimpleSerializers();
+//        SimpleDeserializers deserializers = new SimpleDeserializers();
+//        serializers.addSerializer(Verdict.class, new VerdictSerializer());
+//        deserializers.addDeserializer(Verdict.class, new VerdictDeserializer());
+//        context.addSerializers(serializers);
+//        context.addDeserializers(deserializers);
     }
 
     static class VerdictRecordSerializers extends Serializers.Base {
