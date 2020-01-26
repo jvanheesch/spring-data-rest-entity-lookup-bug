@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
+import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -53,18 +54,19 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
             SimpleSerializers serializers = new SimpleSerializers();
             SimpleDeserializers deserializers = new SimpleDeserializers();
 
-            serializers.addSerializer(Verdict.class, new VerdictSerializer());
-            deserializers.addDeserializer(Verdict.class, new VerdictDeserializer());
+            serializers.addSerializer(VerdictRecord.class, new VerdictRecordSerializer());
+            deserializers.addDeserializer(VerdictRecord.class, new VerdictRecordDeserializer());
 
             context.addSerializers(serializers);
             context.addDeserializers(deserializers);
         }
 
         // TODO_JORIS: fix @JsonUnwrapped shit.
-        public static class VerdictSerializer extends JsonSerializer<Verdict> {
+        public static class VerdictRecordSerializer extends JsonSerializer<VerdictRecord> {
             @Override
-            public void serialize(Verdict value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-                if (value != null) {
+            public void serialize(VerdictRecord value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+                Verdict verdict = value.getVerdict();
+                if (verdict != null) {
                     gen.writeNumber(1L);
                 } else {
                     gen.writeNull();
@@ -72,18 +74,18 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
             }
         }
 
-        public static class VerdictDeserializer extends StdDeserializer<Verdict> {
+        public static class VerdictRecordDeserializer extends StdDeserializer<VerdictRecord> {
 
-            public VerdictDeserializer() {
-                super(Verdict.class);
+            public VerdictRecordDeserializer() {
+                super(VerdictRecord.class);
             }
 
             @Override
-            public Verdict deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+            public VerdictRecord deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
                 JsonNode node = jp.getCodec().readTree(jp);
                 Long verdictId = node.longValue();
 
-                Verdict verdict = new Verdict();
+                VerdictRecord verdict = new VerdictRecord();
                 return verdict;
             }
         }
