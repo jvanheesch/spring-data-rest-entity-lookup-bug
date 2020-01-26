@@ -1,9 +1,0 @@
-package com.github.jvanheesch.spring.data.rest.repo;
-
-import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface VerdictRepository extends CrudRepository<Verdict, Long> {
-}
