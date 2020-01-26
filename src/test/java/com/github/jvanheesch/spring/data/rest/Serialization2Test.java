@@ -2,6 +2,7 @@ package com.github.jvanheesch.spring.data.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -46,25 +45,6 @@ class Serialization2Test {
 
         public void setVerdict2(Optional<Verdict> verdict2) {
             this.verdict2 = verdict2;
-        }
-    }
-
-    private static class Verdict {
-        private String string;
-
-        public Verdict(String string) {
-            this.string = string;
-        }
-
-        public Verdict() {
-        }
-
-        public String getString() {
-            return string;
-        }
-
-        public void setString(String string) {
-            this.string = string;
         }
     }
 }
