@@ -8,8 +8,6 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.type.ReferenceType;
 
-
-
 public class Jdk8Serializers extends Serializers.Base
 {
     @Override
