@@ -23,16 +23,13 @@ class Serialization2Test {
     private ObjectMapper objectMapper1;
     @Autowired
     private RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
-    private ObjectMapper objectMapper2;
-
 
     // TODO_JORIS: het is fine dat cases 2 en 3 hetzelfde behavior hebben, denk ik.
     // immers: enkel de eerste komt voor, en die moet leidden tot null in json.
     // 4th mag nt in json staan!
     @Test
     void testSerialization() throws Exception {
-        this.objectMapper1 = repositoryRestMvcConfiguration.objectMapper();
-        this.objectMapper2 = repositoryRestMvcConfiguration.halObjectMapper();
+        this.objectMapper1 = repositoryRestMvcConfiguration.halObjectMapper();
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("compliant")));
         verdictRecordOwner.setVerdictRecord2(new VerdictRecord(new Verdict()));
@@ -51,11 +48,5 @@ class Serialization2Test {
 
         byte[] bytes = baos.toByteArray();
         System.out.println(new String(bytes));
-
-        String ser = this.objectMapper2.writeValueAsString(verdictRecordOwner);
-
-        VerdictRecordOwner deser = this.objectMapper2.readValue(ser, VerdictRecordOwner.class);
-
-        System.out.println(ser);
     }
 }
