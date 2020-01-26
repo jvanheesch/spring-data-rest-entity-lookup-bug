@@ -9,13 +9,17 @@ import javax.persistence.*;
 public class VerdictRecordOwner {
     @Id
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    // TODO_JORIS LAZY!
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private VerdictRecord verdictRecord1;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    // TODO_JORIS LAZY!
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private VerdictRecord verdictRecord2;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    // TODO_JORIS LAZY!
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private VerdictRecord verdictRecord3;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    // TODO_JORIS LAZY!
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private VerdictRecord verdictRecord4;
 
     public Long getId() {

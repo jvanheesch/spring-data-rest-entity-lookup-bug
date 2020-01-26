@@ -35,9 +35,9 @@ public class DebugController {
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator generator = this.objectMapper1.getFactory().createGenerator(baos, encoding);
+        JsonGenerator generator = this.objectMapper2.getFactory().createGenerator(baos, encoding);
 
-        ObjectWriter objectWriter = this.objectMapper1.writer();
+        ObjectWriter objectWriter = this.objectMapper2.writer();
         objectWriter.writeValue(generator, verdictRecordOwner);
 
         String string = new String(baos.toByteArray());
