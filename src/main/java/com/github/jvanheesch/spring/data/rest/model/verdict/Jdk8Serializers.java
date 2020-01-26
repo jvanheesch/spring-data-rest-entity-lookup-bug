@@ -8,20 +8,21 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.type.ReferenceType;
 
-public class Jdk8Serializers extends Serializers.Base
-{
+public class Jdk8Serializers extends Serializers.Base {
     @Override
-    public JsonSerializer<?> findReferenceSerializer(SerializationConfig config,
-            ReferenceType refType, BeanDescription beanDesc,
-            TypeSerializer contentTypeSerializer, JsonSerializer<Object> contentValueSerializer)
-    {
-        final Class<?> raw = refType.getRawClass();
-        if (Optional.class.isAssignableFrom(raw)) {
-            boolean staticTyping = (contentTypeSerializer == null)
-                    && config.isEnabled(MapperFeature.USE_STATIC_TYPING);
-            return new OptionalSerializer(refType, staticTyping,
-                    contentTypeSerializer, contentValueSerializer);
-        }
-        return null;
+    public JsonSerializer<?> findReferenceSerializer(
+            SerializationConfig config,
+            ReferenceType refType,
+            BeanDescription beanDesc,
+            TypeSerializer contentTypeSerializer,
+            JsonSerializer<Object> contentValueSerializer
+    ) {
+        return Optional.class.isAssignableFrom(refType.getRawClass())
+                ? new OptionalSerializer(
+                refType,
+                (contentTypeSerializer == null) && config.isEnabled(MapperFeature.USE_STATIC_TYPING),
+                contentTypeSerializer,
+                contentValueSerializer)
+                : null;
     }
 }

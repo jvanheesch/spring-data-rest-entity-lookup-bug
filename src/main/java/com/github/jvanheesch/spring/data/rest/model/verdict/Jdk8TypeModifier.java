@@ -1,22 +1,19 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict;
 
-import java.lang.reflect.Type;
-import java.util.*;
-
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.ReferenceType;
 import com.fasterxml.jackson.databind.type.TypeBindings;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.databind.type.TypeModifier;
 
+import java.lang.reflect.Type;
+
 /**
  * We need to ensure `Optional` is a `ReferenceType`
  */
-public class Jdk8TypeModifier extends TypeModifier
-{
+public class Jdk8TypeModifier extends TypeModifier {
     @Override
-    public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory)
-    {
+    public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
         if (type.isReferenceType() || type.isContainerType()) {
             return type;
         }

@@ -7,16 +7,18 @@ import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.type.ReferenceType;
 
-public class Jdk8Deserializers extends Deserializers.Base
-{
-    @Override // since 2.7
-    public JsonDeserializer<?> findReferenceDeserializer(ReferenceType refType,
-            DeserializationConfig config, BeanDescription beanDesc,
-            TypeDeserializer contentTypeDeserializer, JsonDeserializer<?> contentDeserializer)
-    {
-        if (refType.hasRawClass(Optional.class)) {
-            return new OptionalDeserializer(refType, null, contentTypeDeserializer,contentDeserializer);
-        }
-        return null;
+public class Jdk8Deserializers extends Deserializers.Base {
+    @Override
+    public JsonDeserializer<?> findReferenceDeserializer(
+            ReferenceType refType,
+            DeserializationConfig config,
+            BeanDescription beanDesc,
+            TypeDeserializer contentTypeDeserializer,
+            JsonDeserializer<?> contentDeserializer
+    ) {
+        return refType.hasRawClass(Optional.class)
+                ? new OptionalDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
+                : null;
+
     }
 }
