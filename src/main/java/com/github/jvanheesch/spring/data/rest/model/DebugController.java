@@ -28,7 +28,7 @@ public class DebugController {
         this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
         this.repositoryRestMvcConfiguration = repositoryRestMvcConfiguration;
         this.objectMapper3 = repositoryRestMvcConfiguration.objectMapper();
-        // TODO_JORIS nok
+        // TODO_JORIS not same reference it seems, but same config i think.
         this.objectMapper4 = repositoryRestMvcConfiguration.halObjectMapper();
     }
 
