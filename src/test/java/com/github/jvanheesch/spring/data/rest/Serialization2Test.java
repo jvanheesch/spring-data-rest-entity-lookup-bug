@@ -3,7 +3,6 @@ package com.github.jvanheesch.spring.data.rest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,55 +19,53 @@ class Serialization2Test {
 
     @Test
     void testSerialization() throws Exception {
-        VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
-        VerdictRecord verdictRecord = new VerdictRecord();
-        verdictRecord.setVerdict(new Verdict("v1"));
-        verdictRecordOwner.setVerdictRecord1(Optional.of(verdictRecord));
-        verdictRecordOwner.setVerdictRecord2(Optional.of(new VerdictRecord()));
-        verdictRecordOwner.setVerdictRecord3(Optional.empty());
-        verdictRecordOwner.setVerdictRecord4(null);
-        String ser = objectMapper.writeValueAsString(verdictRecordOwner);
+        VerdictOptionalOwner verdictOptionalOwner = new VerdictOptionalOwner();
+        verdictOptionalOwner.setVerdict1(Optional.of(new Verdict("compliant")));
+        verdictOptionalOwner.setVerdict2(Optional.of(new Verdict()));
+        verdictOptionalOwner.setVerdict3(Optional.empty());
+        verdictOptionalOwner.setVerdict4(null);
+        String ser = objectMapper.writeValueAsString(verdictOptionalOwner);
 
         System.out.println(ser);
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private static class VerdictRecordOwner {
-        private Optional<VerdictRecord> verdictRecord1;
-        private Optional<VerdictRecord> verdictRecord2;
-        private Optional<VerdictRecord> verdictRecord3;
-        private Optional<VerdictRecord> verdictRecord4;
+    private static class VerdictOptionalOwner {
+        private Optional<Verdict> verdict1;
+        private Optional<Verdict> verdict2;
+        private Optional<Verdict> verdict3;
+        private Optional<Verdict> verdict4;
 
-        public Optional<VerdictRecord> getVerdictRecord1() {
-            return verdictRecord1;
+        public Optional<Verdict> getVerdict1() {
+            return verdict1;
         }
 
-        public void setVerdictRecord1(Optional<VerdictRecord> verdictRecord1) {
-            this.verdictRecord1 = verdictRecord1;
+        public void setVerdict1(Optional<Verdict> verdict1) {
+            this.verdict1 = verdict1;
         }
 
-        public Optional<VerdictRecord> getVerdictRecord2() {
-            return verdictRecord2;
+        public Optional<Verdict> getVerdict2() {
+            return verdict2;
         }
 
-        public void setVerdictRecord2(Optional<VerdictRecord> verdictRecord2) {
-            this.verdictRecord2 = verdictRecord2;
+        public void setVerdict2(Optional<Verdict> verdict2) {
+            this.verdict2 = verdict2;
         }
 
-        public Optional<VerdictRecord> getVerdictRecord3() {
-            return verdictRecord3;
+        public Optional<Verdict> getVerdict3() {
+            return verdict3;
         }
 
-        public void setVerdictRecord3(Optional<VerdictRecord> verdictRecord3) {
-            this.verdictRecord3 = verdictRecord3;
+        public void setVerdict3(Optional<Verdict> verdict3) {
+            this.verdict3 = verdict3;
         }
 
-        public Optional<VerdictRecord> getVerdictRecord4() {
-            return verdictRecord4;
+        public Optional<Verdict> getVerdict4() {
+            return verdict4;
         }
 
-        public void setVerdictRecord4(Optional<VerdictRecord> verdictRecord4) {
-            this.verdictRecord4 = verdictRecord4;
+        public void setVerdict4(Optional<Verdict> verdict4) {
+            this.verdict4 = verdict4;
         }
     }
 }
