@@ -55,11 +55,11 @@ public class OptionalSerializer extends ReferenceTypeSerializer<Optional> {
 
     @Override
     protected Object _getReferenced(Optional value) {
-        return value.get();
+        return value.getVerdict();
     }
 
     @Override
     protected Object _getReferencedIfPresent(Optional value) {
-        return value.isPresent() ? value.get() : null;
+        return value.isPresent() ? value.getVerdict() : null;
     }
 }

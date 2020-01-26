@@ -38,7 +38,7 @@ final class OptionalDeserializer extends ReferenceTypeDeserializer<Optional> {
 
     @Override
     public Object getReferenced(Optional reference) {
-        return reference.get();
+        return reference.getVerdict();
     }
 
     @Override
