@@ -9,9 +9,7 @@ import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
@@ -99,6 +97,11 @@ public class VerdictRecordModule extends SimpleModule {
 
     static class VerdictRecordSerializer extends ReferenceTypeSerializer<VerdictRecord> {
         private static final long serialVersionUID = 1L;
+
+//        @Override
+//        public boolean isUnwrappingSerializer() {
+//            return true;
+//        }
 
         protected VerdictRecordSerializer(
                 ReferenceType fullType,
