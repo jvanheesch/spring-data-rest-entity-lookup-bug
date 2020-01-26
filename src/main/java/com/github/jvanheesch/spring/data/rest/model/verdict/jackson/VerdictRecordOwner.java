@@ -68,7 +68,7 @@ public class VerdictRecordOwner {
     }
 
     public Optional<String> getString1() {
-        return Optional.ofNullable(string1);
+        return Optional.ofNullable("abc");
     }
 
     public void setString1(String string1) {

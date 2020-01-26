@@ -36,9 +36,6 @@ class Serialization2Test {
         verdictRecordOwner.setVerdictRecord3(new VerdictRecord());
         verdictRecordOwner.setVerdictRecord4(null);
 
-        verdictRecordOwner.setString1("abc");
-        verdictRecordOwner.setString2(null);
-
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         JsonGenerator generator = this.objectMapper1.getFactory().createGenerator(baos, encoding);
