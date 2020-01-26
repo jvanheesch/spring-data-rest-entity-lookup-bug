@@ -21,6 +21,7 @@ class Serialization2Test {
     void testSerialization() throws Exception {
         VerdictOptionalOwner verdictOptionalOwner = new VerdictOptionalOwner();
         verdictOptionalOwner.setVerdict1(Optional.of(new Verdict("compliant")));
+        // TODO_JORIS: het is fine dat deze 1 cases hetzelfde behavior hebben, denk ik.
         verdictOptionalOwner.setVerdict2(Optional.of(new Verdict()));
         verdictOptionalOwner.setVerdict3(Optional.empty());
         verdictOptionalOwner.setVerdict4(null);
