@@ -1,8 +1,13 @@
 package com.github.jvanheesch.spring.data.rest;
 
 import com.github.jvanheesch.spring.data.rest.model.Author;
+import com.github.jvanheesch.spring.data.rest.model.verdict.OriginWoodEvaluation;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
+import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
+import com.github.jvanheesch.spring.data.rest.repo.OriginWoodEvaluationRepository;
+import com.github.jvanheesch.spring.data.rest.repo.VerdictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,6 +23,10 @@ public class Application {
     BookRepository bookRepository;
     @Autowired
     AuthorRepository authorRepository;
+    @Autowired
+    VerdictRepository verdictRepository;
+    @Autowired
+    OriginWoodEvaluationRepository originWoodEvaluationRepository;
 
     @Bean
     public CommonsRequestLoggingFilter requestLoggingFilter() {
@@ -36,5 +45,18 @@ public class Application {
         Author author = new Author();
         author.setName("Oliver");
         authorRepository.save(author);
+
+        Verdict verdict = new Verdict();
+        verdict.setId(1L);
+        verdict.setName("Compliant");
+
+        Verdict savedVerdict = verdictRepository.save(verdict);
+
+        OriginWoodEvaluation originWoodEvaluation = new OriginWoodEvaluation();
+        originWoodEvaluation.setCitesLicense(new VerdictRecord());
+        originWoodEvaluation.setFlegtLicense(new VerdictRecord());
+        originWoodEvaluation.getFlegtLicense().setVerdict(savedVerdict);
+
+        originWoodEvaluationRepository.save(originWoodEvaluation);
     }
 }

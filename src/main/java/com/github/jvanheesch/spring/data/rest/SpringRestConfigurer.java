@@ -17,6 +17,7 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
                         author -> String.valueOf(author.getId()),
                         (authorRepository, id) -> authorRepository.findById(Long.valueOf(id))
                 );
+        config.disableDefaultExposure();
     }
 
     @Bean
