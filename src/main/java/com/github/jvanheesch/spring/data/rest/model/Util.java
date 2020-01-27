@@ -24,10 +24,9 @@ public class Util {
 
         VerdictRecord verdictRecord3 = null;
 
-        verdictRecordOwner.setVerdictRecord1(Optional.ofNullable(verdictRecord1));
-        verdictRecordOwner.setVerdictRecord2(Optional.ofNullable(verdictRecord2));
-        verdictRecordOwner.setVerdictRecord3(Optional.ofNullable(verdictRecord3));
-        verdictRecordOwner.setVerdictRecord4(null);
+        verdictRecordOwner.setVerdict1(Optional.ofNullable(verdict));
+        verdictRecordOwner.setVerdict2(Optional.ofNullable(null));
+        verdictRecordOwner.setVerdict3(null);
 
         return verdictRecordOwner;
     }
