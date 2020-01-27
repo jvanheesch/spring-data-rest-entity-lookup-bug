@@ -1,0 +1,42 @@
+Changing a property from @Transient to @Embedded breaks serialization (deserialization still works as expected)
+
+Please see reference url for reproducer with unit tests.
+
+This is a rather complicated/specific issue, so I'll start by explaining the context & original goal.
+I will often reference the reproducer'' code in this yadda yadda.
+
+Jackson's Jdk8Module contains support for serializing objects of type Optional<T>.
+By default, the presence of
+private Optional<String> someOptional
+in some object, will result in the following in json: [todo rephrase]
+someOptional: "x", when someOptional wraps the value "x"
+someOptional: null, when someOptional is the empty Optional
+property absent in json, when someOptional is null.
+Yadda yadda and vice versa.
+This behavior is demonstrated by the following two tests in the reproducer:
+givenAStringOptionalOwner_whenSerializing_thenEmptyOptionalLeadsToNullAndNullLeadsToAbsentProperty
+givenAStringOptionalOwner_whenDeserializing_thenNullLeadsToEmptyOptionalAndAbsentPropertyLeadsToNull
+
+I wanted this exact behavior for my own container/wrapper class (*).
+I defined a simple class StringContainer, which is basically a wrapper around a String.
+I created a jackson Module (StringContainerModule) based on jackson's Jdk8Module.
+I registered this module with Spring Data REST (see SpringRestConfigurer)
+I created an entity StringContainerOwner, which has 3 fields of type StringContainerOwner.
+The fields are annotated with @Transient.
+The serialization/deserialization behavior works as expected, as demonstrated by the following two tests:
+givenAStringContainerOwner_whenSerializing_thenEmptyContainerLeadsToNullAndNullLeadsToAbsentProperty
+givenAStringContainerOwner_whenDeserializing_thenNullLeadsToEmptyContainerAndAbsentPropertyLeadsToNull
+
+I now wanted to persist these StringContainer fields to my db (in-memory h2).
+I created a new class StringContainerEmbeddedOwner.
+This class contains a single field of type StringContainerOwner.
+This field is now annotated with @Embedded, whereas earlier all fields were annotated with @Transient.
+This causes the serialization to fail,
+
+
+
+
+
+
+https://github.com/FasterXML/jackson-databind/issues/578
+
