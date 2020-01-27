@@ -2,7 +2,6 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
