@@ -9,7 +9,9 @@ import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
@@ -29,12 +31,35 @@ public class VerdictRecordModule extends SimpleModule {
         context.addDeserializers(new VerdictRecordDeserializers());
         context.addTypeModifier(new VerdictRecordTypeModifier());
 
+        SimpleSerializers serializers = new SimpleSerializers();
+        // SimpleDeserializers deserializers = new SimpleDeserializers();
+
+        serializers.addSerializer(StringContainer.class, new StringContainerSerializer());
+//        deserializers.addDeserializer(VerdictRecord.class, new VerdictRecordDeserializer(verdictRepository));
+
+        context.addSerializers(serializers);
+//        context.addDeserializers(deserializers);
+
 //        SimpleSerializers serializers = new SimpleSerializers();
 //        SimpleDeserializers deserializers = new SimpleDeserializers();
 //        serializers.addSerializer(Verdict.class, new VerdictSerializer());
 //        deserializers.addDeserializer(Verdict.class, new VerdictDeserializer());
 //        context.addSerializers(serializers);
 //        context.addDeserializers(deserializers);
+    }
+    // TODO_JORIS: fix @JsonUnwrapped shit.
+    public static class StringContainerSerializer extends JsonSerializer<StringContainer> {
+//        @Override
+//        public boolean isUnwrappingSerializer() {
+//            return true;
+//        }
+
+        @Override
+        public void serialize(StringContainer value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+//            gen.writeStartObject();
+            gen.writeStringField("verdict", "tadaa");
+//            gen.writeEndObject();
+        }
     }
 
     static class VerdictRecordSerializers extends Serializers.Base {
@@ -155,7 +180,7 @@ public class VerdictRecordModule extends SimpleModule {
         }
     }
 
-    private static class StringContainer {
+    public static class StringContainer {
         private final String verdict;
 
         private StringContainer(String verdict) {
