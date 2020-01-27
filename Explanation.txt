@@ -15,15 +15,17 @@ givenAStringOptionalOwner_whenDeserializing_thenNullLeadsToEmptyOptionalAndAbsen
 Goal:
 I wanted this exact behavior (i.e. distinction between null and empty Optional) for my own container/wrapper class (*).
 I defined a simple class StringContainer, which is basically a wrapper around a String.
-I created a jackson Module (StringContainerModule) based on jackson's Jdk8Module, as StringContainer is similar to Optional<String>.
-I registered this module with Spring Data Rest (see SpringRestConfigurer)
+For now, please ignore that StringContainer is annotated with @Embeddable.
+I created a jackson Module (StringContainerModule) based on jackson's Jdk8Module (as StringContainer is similar to Optional<String>),
+and registered it with Spring Data Rest (see SpringRestConfigurer)
 I created an @Entity StringContainerOwner, which has 3 fields of type StringContainerOwner.
 The fields are annotated with @Transient, such that they are not persisted.
 The serialization/deserialization behavior works as expected, as demonstrated by the following two tests:
 givenAStringContainerOwner_whenSerializing_thenEmptyContainerLeadsToNullAndNullLeadsToAbsentProperty
 givenAStringContainerOwner_whenDeserializing_thenNullLeadsToEmptyContainerAndAbsentPropertyLeadsToNull
 
-I now wanted to persist these StringContainer fields to my db (in-memory h2).
+Issue:
+I now want to persist these StringContainer fields to my db (in-memory h2).
 (Side note: I actually want the StringContainer to be @Entity rather than @Embeddable. I noticed the same serialization error in both cases,
 and made a reproducer for the @Embeddable case, as it's closer to the working @Transient example - no need to add an @Id etc.)
 I created a new class StringContainerEmbeddedOwner.
