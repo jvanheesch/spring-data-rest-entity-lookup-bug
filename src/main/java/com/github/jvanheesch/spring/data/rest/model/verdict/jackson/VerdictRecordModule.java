@@ -1,16 +1,13 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.deser.Deserializers;
-import com.fasterxml.jackson.databind.deser.ValueInstantiator;
-import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
-import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
 import com.fasterxml.jackson.databind.util.NameTransformer;
+import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 
 import java.lang.reflect.Type;
 
