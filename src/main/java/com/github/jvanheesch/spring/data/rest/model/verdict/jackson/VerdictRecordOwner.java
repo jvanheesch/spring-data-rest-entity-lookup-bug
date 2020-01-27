@@ -1,7 +1,6 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import javax.persistence.*;
@@ -20,7 +19,7 @@ public class VerdictRecordOwner {
     @OneToOne(fetch = FetchType.EAGER)
     private Verdict verdict;
     // TODO_JORIS: unwrapping loses field name 'verdictRecord', so wont work with multiple records ...!
-     // @JsonUnwrapped
+    // @JsonUnwrapped
     // TODO_JORIS lazy
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private VerdictRecord verdictRecord;
@@ -54,6 +53,11 @@ public class VerdictRecordOwner {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<Verdict> getVerdict3() {
         return null;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Optional<String> getVerdictOptionalOfString() {
+        return Optional.of("abc");
     }
 
     public void setVerdict3(Verdict verdictRecord3) {
