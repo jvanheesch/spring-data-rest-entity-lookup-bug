@@ -2,8 +2,6 @@ package com.github.jvanheesch.spring.data.rest;
 
 import com.github.jvanheesch.spring.data.rest.model.Author;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import javax.annotation.PostConstruct;
-import java.util.Optional;
 
 @SpringBootApplication
 public class Application {
