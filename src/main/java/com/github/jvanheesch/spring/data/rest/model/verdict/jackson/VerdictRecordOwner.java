@@ -2,19 +2,17 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class VerdictRecordOwner {
     @Id
     private Long id;
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord1;
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord2;
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord3;
 
     public Long getId() {
@@ -27,16 +25,16 @@ public class VerdictRecordOwner {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public VerdictRecord getVerdictRecord1() {
-        return new VerdictRecord("abc");
+        return verdictRecord1;
     }
 
-    public void setVerdictRecord1(VerdictRecord verdictRecord) {
-        this.verdictRecord1 = verdictRecord;
+    public void setVerdictRecord1(VerdictRecord verdictRecord1) {
+        this.verdictRecord1 = verdictRecord1;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public VerdictRecord getVerdictRecord2() {
-        return new VerdictRecord();
+        return verdictRecord2;
     }
 
     public void setVerdictRecord2(VerdictRecord verdictRecord2) {
@@ -45,7 +43,7 @@ public class VerdictRecordOwner {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public VerdictRecord getVerdictRecord3() {
-        return null;
+        return verdictRecord3;
     }
 
     public void setVerdictRecord3(VerdictRecord verdictRecord3) {

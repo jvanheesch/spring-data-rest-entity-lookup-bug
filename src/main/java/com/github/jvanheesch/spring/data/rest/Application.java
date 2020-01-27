@@ -1,6 +1,7 @@
 package com.github.jvanheesch.spring.data.rest;
 
 import com.github.jvanheesch.spring.data.rest.model.Author;
+import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
@@ -39,10 +40,22 @@ public class Application {
     public void init() {
         Author author = new Author();
         author.setName("Oliver");
-        authorRepository.save(author);;
+        authorRepository.save(author);
+
+        VerdictRecord filledInVerdictRecord = new VerdictRecord();
+        filledInVerdictRecord.setId(1L);
+        filledInVerdictRecord.setValue("compliant");
+        VerdictRecord blankVerdictRecord = new VerdictRecord();
+        blankVerdictRecord.setId(2L);
+        blankVerdictRecord.setValue(null);
+        VerdictRecord nullVerdictRecord = null;
 
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setId(1L);
+        verdictRecordOwner.setVerdictRecord1(filledInVerdictRecord);
+        verdictRecordOwner.setVerdictRecord2(blankVerdictRecord);
+        verdictRecordOwner.setVerdictRecord3(nullVerdictRecord);
+
         verdictRecordOwnerRepository.save(verdictRecordOwner);
     }
 }
