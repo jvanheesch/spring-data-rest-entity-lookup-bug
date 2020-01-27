@@ -59,16 +59,16 @@ public class Application {
         verdictRecord.setVerdict(compliant);
         verdictRecordRepository.save(verdictRecord);
 
-//        VerdictRecord verdictRecord2 = new VerdictRecord();
-//        verdictRecord.setId(2L);
-//        verdictRecord.setVerdict(nonCompliant);
+        VerdictRecord verdictRecord2 = new VerdictRecord();
+        verdictRecord2.setId(2L);
+        verdictRecord2.setVerdict(nonCompliant);
 
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setId(1L);
         verdictRecordOwner.setVerdict(compliant);
         verdictRecordOwner.setVerdict1(compliant);
         verdictRecordOwner.setVerdict1(nonCompliant);
-//        verdictRecordOwner.setVerdictRecord(verdictRecord2);
+        verdictRecordOwner.setVerdictRecord(verdictRecord2);
         verdictRecordOwnerRepository.save(verdictRecordOwner);
 
 
