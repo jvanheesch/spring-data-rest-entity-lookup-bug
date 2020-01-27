@@ -19,12 +19,12 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
                         author -> String.valueOf(author.getId()),
                         (authorRepository, id) -> authorRepository.findById(Long.valueOf(id))
                 );
-        config.withEntityLookup()
-                .forValueRepository(
-                        VerdictRepository.class,
-                        Verdict::getId,
-                        (verdictRepository, id) -> verdictRepository.findById(Long.valueOf(id))
-                );
+//        config.withEntityLookup()
+//                .forValueRepository(
+//                        VerdictRepository.class,
+//                        Verdict::getId,
+//                        (verdictRepository, id) -> verdictRepository.findById(Long.valueOf(id))
+//                );
         config.disableDefaultExposure();
     }
 

@@ -2,11 +2,9 @@ package com.github.jvanheesch.spring.data.rest;
 
 import com.github.jvanheesch.spring.data.rest.model.Author;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
+import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
-import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
-import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
-import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
-import com.github.jvanheesch.spring.data.rest.repo.VerdictRepository;
+import com.github.jvanheesch.spring.data.rest.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +24,8 @@ public class Application {
     VerdictRepository verdictRepository;
     @Autowired
     VerdictRecordOwnerRepository verdictRecordOwnerRepository;
+    @Autowired
+    VerdictRecordRepository verdictRecordRepository;
 
     @Bean
     public CommonsRequestLoggingFilter requestLoggingFilter() {
@@ -60,6 +60,12 @@ public class Application {
         verdictRecordOwner.setVerdict1(compliant);
         verdictRecordOwner.setVerdict1(nonCompliant);
         verdictRecordOwnerRepository.save(verdictRecordOwner);
+
+        VerdictRecord verdictRecord = new VerdictRecord();
+        verdictRecord.setId(1L);
+        verdictRecord.setVerdict(compliant);
+        verdictRecordRepository.save(verdictRecord);
+
 
 //        VerdictRecord verdictRecord1 = new VerdictRecord();
 //        verdictRecord1.setId(1L);
