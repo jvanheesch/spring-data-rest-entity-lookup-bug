@@ -164,14 +164,14 @@ public class StringContainerModule extends SimpleModule {
         @Override
         public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
             if (type.getRawClass() == StringContainer.class) {
-                return ReferenceType.upgradeFrom(new StringContainerType(), new VerdictType());
+                return ReferenceType.upgradeFrom(new StringContainerType(), new StringType());
             } else {
                 return type;
             }
         }
 
-        private static class VerdictType extends SimpleType {
-            protected VerdictType() {
+        private static class StringType extends SimpleType {
+            protected StringType() {
                 super(String.class);
             }
         }
