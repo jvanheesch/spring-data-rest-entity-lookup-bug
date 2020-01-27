@@ -50,7 +50,7 @@ public class Application {
         compliant.setString("Compliant");
         verdictRepository.save(compliant);
         Verdict nonCompliant = new Verdict();
-        nonCompliant.setId(1L);
+        nonCompliant.setId(2L);
         nonCompliant.setString("Non-compliant");
         verdictRepository.save(nonCompliant);
 
