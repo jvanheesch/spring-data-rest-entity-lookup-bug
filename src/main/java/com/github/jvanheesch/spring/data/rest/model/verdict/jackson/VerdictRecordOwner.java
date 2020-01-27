@@ -1,6 +1,7 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class VerdictRecordOwner {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public VerdictRecord getVerdictRecord1() {
-        return new VerdictRecord("abc");
+        return new VerdictRecord(new Verdict("abc"));
     }
 
     public void setVerdictRecord1(VerdictRecord verdictRecord) {

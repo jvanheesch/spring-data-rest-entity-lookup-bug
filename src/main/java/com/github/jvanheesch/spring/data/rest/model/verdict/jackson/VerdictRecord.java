@@ -1,20 +1,22 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
-public class VerdictRecord {
-    private String value;
+import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-    public VerdictRecord(String value) {
+public class VerdictRecord {
+    private Verdict value;
+
+    public VerdictRecord(Verdict value) {
         this.value = value;
     }
 
     public VerdictRecord() {
     }
 
-    public String getValue() {
+    public Verdict getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Verdict value) {
         this.value = value;
     }
 }

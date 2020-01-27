@@ -21,7 +21,7 @@ public class VerdictRecordModule extends SimpleModule {
     @Override
     public void setupModule(SetupContext context) {
         context.addSerializers(new VerdictRecordSerializers());
-        context.addDeserializers(new VerdictRecordDeserializers());
+        // context.addDeserializers(new VerdictRecordDeserializers());
         context.addTypeModifier(new VerdictRecordTypeModifier());
     }
 
@@ -48,21 +48,21 @@ public class VerdictRecordModule extends SimpleModule {
         }
     }
 
-    static class VerdictRecordDeserializers extends Deserializers.Base {
-        @Override
-        public JsonDeserializer<?> findReferenceDeserializer(
-                ReferenceType refType,
-                DeserializationConfig config,
-                BeanDescription beanDesc,
-                TypeDeserializer contentTypeDeserializer,
-                JsonDeserializer<?> contentDeserializer
-        ) {
-            return refType.hasRawClass(VerdictRecord.class)
-                    ? new VerdictRecordDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
-                    : null;
-
-        }
-    }
+//    static class VerdictRecordDeserializers extends Deserializers.Base {
+//        @Override
+//        public JsonDeserializer<?> findReferenceDeserializer(
+//                ReferenceType refType,
+//                DeserializationConfig config,
+//                BeanDescription beanDesc,
+//                TypeDeserializer contentTypeDeserializer,
+//                JsonDeserializer<?> contentDeserializer
+//        ) {
+//            return refType.hasRawClass(VerdictRecord.class)
+//                    ? new VerdictRecordDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
+//                    : null;
+//
+//        }
+//    }
 
     static class VerdictRecordTypeModifier extends TypeModifier {
         @Override
@@ -134,52 +134,52 @@ public class VerdictRecordModule extends SimpleModule {
         @Override
         protected Object _getReferenced(VerdictRecord verdictRecord) {
             // TODO_JORIS: why does this not work??? see optional.
-            return verdictRecord.getValue();
+            return verdictRecord.getValue() != null ? verdictRecord.getValue().getValue() : null;
         }
 
         // hier moeten we 3x inkomen, once for each verdictrecord !! gebeurt in test, maar slechts 2x in SDR !!!!!
         @Override
         protected Object _getReferencedIfPresent(VerdictRecord verdictRecord) {
-            return verdictRecord.getValue();
+            return verdictRecord.getValue() != null ? verdictRecord.getValue().getValue() : null;
         }
     }
 
-    static class VerdictRecordDeserializer extends ReferenceTypeDeserializer<VerdictRecord> {
-        private static final long serialVersionUID = 1L;
-
-        public VerdictRecordDeserializer(
-                JavaType fullType,
-                ValueInstantiator inst,
-                TypeDeserializer typeDeser,
-                JsonDeserializer<?> deser
-        ) {
-            super(fullType, inst, typeDeser, deser);
-        }
-
-        @Override
-        public VerdictRecordDeserializer withResolved(TypeDeserializer typeDeser, JsonDeserializer<?> valueDeser) {
-            return new VerdictRecordDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
-        }
-
-        // TODO_JORIS snappen
-        @Override
-        public VerdictRecord getNullValue(DeserializationContext ctxt) {
-            return new VerdictRecord();
-        }
-
-        @Override
-        public VerdictRecord referenceValue(Object contents) {
-            return new VerdictRecord((String) contents);
-        }
-
-        @Override
-        public Object getReferenced(VerdictRecord reference) {
-            return reference.getValue();
-        }
-
-        @Override
-        public VerdictRecord updateReference(VerdictRecord reference, Object contents) {
-            return new VerdictRecord((String) contents);
-        }
-    }
+//    static class VerdictRecordDeserializer extends ReferenceTypeDeserializer<VerdictRecord> {
+//        private static final long serialVersionUID = 1L;
+//
+//        public VerdictRecordDeserializer(
+//                JavaType fullType,
+//                ValueInstantiator inst,
+//                TypeDeserializer typeDeser,
+//                JsonDeserializer<?> deser
+//        ) {
+//            super(fullType, inst, typeDeser, deser);
+//        }
+//
+//        @Override
+//        public VerdictRecordDeserializer withResolved(TypeDeserializer typeDeser, JsonDeserializer<?> valueDeser) {
+//            return new VerdictRecordDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
+//        }
+//
+//        // TODO_JORIS snappen
+//        @Override
+//        public VerdictRecord getNullValue(DeserializationContext ctxt) {
+//            return new VerdictRecord();
+//        }
+//
+//        @Override
+//        public VerdictRecord referenceValue(Object contents) {
+//            return new VerdictRecord((String) contents);
+//        }
+//
+//        @Override
+//        public Object getReferenced(VerdictRecord reference) {
+//            return reference.getValue();
+//        }
+//
+//        @Override
+//        public VerdictRecord updateReference(VerdictRecord reference, Object contents) {
+//            return new VerdictRecord((String) contents);
+//        }
+//    }
 }
