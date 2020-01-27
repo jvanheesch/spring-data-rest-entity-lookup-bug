@@ -1,3 +1,9 @@
+TODO_JORIS:
+serialization snappen:
+- non-exported vs exported resources
+- links
+...
+
 Incorrect serialization - changing a property from @Transient to @Embedded breaks serialization (deserialization still works as expected)
 
 This is a rather complicated issue, so this explanation will clarify the reproducer (see reference url).
