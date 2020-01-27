@@ -170,7 +170,8 @@ public class VerdictRecordModule extends SimpleModule {
 
         @Override
         protected Object _getReferenced(VerdictRecord value) {
-            return value.getVerdict();
+            // TODO_JORIS: why does this not work??? see optional.
+            return "abc";
         }
 
         // hier moeten we 3x inkomen, once for each verdictrecord !! gebeurt in test, maar slechts 2x in SDR !!!!!
