@@ -1,7 +1,6 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 
 import javax.persistence.Entity;
@@ -29,16 +28,16 @@ public class VerdictRecordOwner {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public VerdictRecord getVerdictRecord1() {
-        return new VerdictRecord(new Verdict("abc"));
+        return verdictRecord1;
     }
 
-    public void setVerdictRecord1(VerdictRecord verdictRecord) {
-        this.verdictRecord1 = verdictRecord;
+    public void setVerdictRecord1(VerdictRecord verdictRecord1) {
+        this.verdictRecord1 = verdictRecord1;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public VerdictRecord getVerdictRecord2() {
-        return new VerdictRecord();
+        return verdictRecord2;
     }
 
     public void setVerdictRecord2(VerdictRecord verdictRecord2) {
@@ -47,10 +46,37 @@ public class VerdictRecordOwner {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public VerdictRecord getVerdictRecord3() {
-        return null;
+        return verdictRecord3;
     }
 
     public void setVerdictRecord3(VerdictRecord verdictRecord3) {
         this.verdictRecord3 = verdictRecord3;
     }
+
+    //    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public VerdictRecord getVerdictRecord1() {
+//        return new VerdictRecord(new Verdict("abc"));
+//    }
+//
+//    public void setVerdictRecord1(VerdictRecord verdictRecord) {
+//        this.verdictRecord1 = verdictRecord;
+//    }
+//
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public VerdictRecord getVerdictRecord2() {
+//        return new VerdictRecord();
+//    }
+//
+//    public void setVerdictRecord2(VerdictRecord verdictRecord2) {
+//        this.verdictRecord2 = verdictRecord2;
+//    }
+//
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public VerdictRecord getVerdictRecord3() {
+//        return null;
+//    }
+//
+//    public void setVerdictRecord3(VerdictRecord verdictRecord3) {
+//        this.verdictRecord3 = verdictRecord3;
+//    }
 }
