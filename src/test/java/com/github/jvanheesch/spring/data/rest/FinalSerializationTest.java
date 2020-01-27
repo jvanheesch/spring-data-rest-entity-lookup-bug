@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.StringOptionalOwner;
 import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecordOwner;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -32,10 +33,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class FinalSerializationTest {
     @Autowired
     private RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
+    private ObjectMapper objectMapper;
+
+    @BeforeEach
+    public void initializeObjectMapper() {
+        this.objectMapper = repositoryRestMvcConfiguration.halObjectMapper();
+    }
 
     @Test
     void givenAnStringOptionalOwner_whenSerializing_thenEmptyOptionalLeadsToNullAndNullLeadsToAbsentProperty() throws Exception {
-        ObjectMapper objectMapper = repositoryRestMvcConfiguration.halObjectMapper();
         StringOptionalOwner original = new StringOptionalOwner();
 
         original.setStringOptional1(Optional.of("abc"));
