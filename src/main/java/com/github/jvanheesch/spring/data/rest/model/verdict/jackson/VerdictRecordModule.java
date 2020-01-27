@@ -15,6 +15,9 @@ import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 
 import java.lang.reflect.Type;
 
+/**
+ * Based on {@link com.fasterxml.jackson.datatype.jdk8.Jdk8Module}.
+ */
 public class VerdictRecordModule extends SimpleModule {
     @Override
     public void setupModule(SetupContext context) {
