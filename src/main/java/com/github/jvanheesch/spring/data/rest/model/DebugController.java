@@ -2,6 +2,7 @@ package com.github.jvanheesch.spring.data.rest.model;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
@@ -16,31 +17,24 @@ import java.io.IOException;
 
 @RestController
 public class DebugController {
-    private final ObjectMapper objectMapper1;
-    private final ObjectMapper objectMapper2 = Jackson2ObjectMapperBuilder.json().build();
-    private final ObjectMapper objectMapper3;
-    private final ObjectMapper objectMapper4;
+    private ObjectMapper objectMapper;
     private final VerdictRecordOwnerRepository verdictRecordOwnerRepository;
-    private final RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
 
-    public DebugController(ObjectMapper objectMapper1, VerdictRecordOwnerRepository verdictRecordOwnerRepository, RepositoryRestMvcConfiguration repositoryRestMvcConfiguration) {
-        this.objectMapper1 = objectMapper1;
+    public DebugController(VerdictRecordOwnerRepository verdictRecordOwnerRepository, RepositoryRestMvcConfiguration repositoryRestMvcConfiguration) {
         this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
-        this.repositoryRestMvcConfiguration = repositoryRestMvcConfiguration;
-        this.objectMapper3 = repositoryRestMvcConfiguration.objectMapper();
-        // TODO_JORIS not same reference it seems, but same config i think.
-        this.objectMapper4 = repositoryRestMvcConfiguration.halObjectMapper();
+        this.objectMapper = repositoryRestMvcConfiguration.halObjectMapper();
     }
 
     @GetMapping("/debug")
     public String test() throws IOException {
+        // this.objectMapper = this.objectMapper.configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true);
         VerdictRecordOwner verdictRecordOwner = verdictRecordOwnerRepository.findAll().iterator().next();
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator generator = this.objectMapper4.getFactory().createGenerator(baos, encoding);
+        JsonGenerator generator = this.objectMapper.getFactory().createGenerator(baos, encoding);
 
-        ObjectWriter objectWriter = this.objectMapper4.writer();
+        ObjectWriter objectWriter = this.objectMapper.writer();
         objectWriter.writeValue(generator, verdictRecordOwner);
 
         String string = new String(baos.toByteArray());

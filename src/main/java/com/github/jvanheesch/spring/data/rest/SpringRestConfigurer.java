@@ -1,5 +1,6 @@
 package com.github.jvanheesch.spring.data.rest;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordModule;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;

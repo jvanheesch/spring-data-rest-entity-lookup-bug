@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 @SpringBootApplication
 public class Application {
@@ -45,7 +46,6 @@ public class Application {
 
         Verdict verdict = new Verdict();
         verdict.setString("Compliant");
-
         VerdictRecord verdictRecord1 = new VerdictRecord();
         verdictRecord1.setId(1L);
         verdictRecord1.setVerdict(verdict);
@@ -53,9 +53,46 @@ public class Application {
         VerdictRecord verdictRecord2 = new VerdictRecord();
         verdictRecord2.setId(2L);
 
+        VerdictRecord verdictRecord3 = null;
+
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setId(1L);
+        verdictRecordOwner.setVerdictRecord1(Optional.ofNullable(verdictRecord1));
+        verdictRecordOwner.setVerdictRecord2(Optional.ofNullable(verdictRecord2));
+        verdictRecordOwner.setVerdictRecord3(Optional.ofNullable(verdictRecord3));
+        verdictRecordOwner.setVerdictRecord4(null);
 
         verdictRecordOwnerRepository.save(verdictRecordOwner);
     }
+
+
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public Optional<VerdictRecord> getVerdictRecord1() {
+//        Verdict verdict = new Verdict();
+//        verdict.setString("compliant");
+//
+//        VerdictRecord verdictRecord1 = new VerdictRecord();
+//        verdictRecord1.setId(1L);
+//        verdictRecord1.setVerdict(verdict);
+//
+//        return Optional.ofNullable(verdictRecord1);
+//    }
+//
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public Optional<VerdictRecord> getVerdictRecord2() {
+//        VerdictRecord verdictRecord2 = new VerdictRecord();
+//        verdictRecord2.setId(2L);
+//        return Optional.ofNullable(verdictRecord2);
+//    }
+//
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public Optional<VerdictRecord> getVerdictRecord3() {
+//        return Optional.empty();
+//    }
+//
+//    // TODO_JORIS: evil ofc
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    public Optional<VerdictRecord> getVerdictRecord4() {
+//        return null;
+//    }
 }
