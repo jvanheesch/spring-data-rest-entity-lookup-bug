@@ -10,12 +10,12 @@ import java.util.Optional;
 public class VerdictRecordOwner {
     @Id
     private Long id;
-    @Transient
-    private Optional<Verdict> verdictRecord1;
-    @Transient
-    private Optional<Verdict> verdictRecord2;
-    @Transient
-    private Optional<Verdict> verdictRecord3;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Verdict verdictRecord1;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Verdict verdictRecord2;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Verdict verdictRecord3;
     @OneToOne(fetch = FetchType.EAGER)
     private Verdict verdict;
 
@@ -29,28 +29,28 @@ public class VerdictRecordOwner {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<Verdict> getVerdict1() {
-        return verdictRecord1;
+        return Optional.ofNullable(verdictRecord1);
     }
 
-    public void setVerdict1(Optional<Verdict> verdictRecord1) {
+    public void setVerdict1(Verdict verdictRecord1) {
         this.verdictRecord1 = verdictRecord1;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<Verdict> getVerdict2() {
-        return verdictRecord2;
+        return Optional.ofNullable(verdictRecord2);
     }
 
-    public void setVerdict2(Optional<Verdict> verdictRecord2) {
+    public void setVerdict2(Verdict verdictRecord2) {
         this.verdictRecord2 = verdictRecord2;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<Verdict> getVerdict3() {
-        return verdictRecord3;
+        return null;
     }
 
-    public void setVerdict3(Optional<Verdict> verdictRecord3) {
+    public void setVerdict3(Verdict verdictRecord3) {
         this.verdictRecord3 = verdictRecord3;
     }
 

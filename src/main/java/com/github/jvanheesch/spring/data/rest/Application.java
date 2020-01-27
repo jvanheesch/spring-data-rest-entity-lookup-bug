@@ -45,14 +45,20 @@ public class Application {
         author.setName("Oliver");
         authorRepository.save(author);
 
-        Verdict verdict = new Verdict();
-        verdict.setId(1L);
-        verdict.setString("Compliant");
-        verdictRepository.save(verdict);
+        Verdict compliant = new Verdict();
+        compliant.setId(1L);
+        compliant.setString("Compliant");
+        verdictRepository.save(compliant);
+        Verdict nonCompliant = new Verdict();
+        nonCompliant.setId(1L);
+        nonCompliant.setString("Non-compliant");
+        verdictRepository.save(nonCompliant);
 
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setId(1L);
-        verdictRecordOwner.setVerdict(verdict);
+        verdictRecordOwner.setVerdict(compliant);
+        verdictRecordOwner.setVerdict1(compliant);
+        verdictRecordOwner.setVerdict1(nonCompliant);
         verdictRecordOwnerRepository.save(verdictRecordOwner);
 
 //        VerdictRecord verdictRecord1 = new VerdictRecord();
