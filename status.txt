@@ -1,3 +1,14 @@
+- Debug in AbstractJackson2HttpMessageConverter:writeInternal
+- value = com.github.jvanheesch.spring.data.rest.model.Util.getVerdictRecordOwner()
+- somehow: good stuff is rendered.
+==> momenteel: gwn a matter of data!!! -> was al aangetoond in debugcontroller.
+
+=========================================================================================================
+value = com.github.jvanheesch.spring.data.rest.model.Util.getVerdictRecordOwner()
+=========================================================================================================
+
+
+
 jackson: java8:
 undefined/not present   <-> null
 null                    <-> empty optional
