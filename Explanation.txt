@@ -4,7 +4,7 @@ This is a rather complicated issue, so this explanation will clarify the reprodu
 
 Context:
 Jackson's Jdk8Module contains support for (de)serializing objects of type Optional<T>.
-By default, <code>@JsonInclude(JsonInclude.Include.NON_NULL) Optional<String> someOptional</code> in java will correspond with one of three things in json:
+By default, <code>@JsonInclude(JsonInclude.Include.NON_NULL) Optional<String> someOptional</code> in java will correspond to one of three things in json:
 - someOptional: "x", when someOptional is an Optional containing the String "x"
 - someOptional: null, when someOptional is the empty Optional
 - absent in json (= undefined), when someOptional is null.
