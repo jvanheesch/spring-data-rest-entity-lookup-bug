@@ -1,3 +1,23 @@
+========================================================================================================================
+SDR optional shizzle
+========================================================================================================================
+Current example is contrived: no added value, in that: we will not make optional null.
+TODO: native hibernate support met nullable optionals? wss niet?
+Op zich lijkt dat mij logisch:
+Wat ik in essentie doe is een custom serializer definieren voor Optional, dus das kinda logisch dat die ook
+custom flow niet met entity-lookup gaat werken
+
+
+
+
+Still, might be something...
+
+
+However, might find an example
+
+
+
+
 - Debug in AbstractJackson2HttpMessageConverter:writeInternal
 - value = com.github.jvanheesch.spring.data.rest.model.Util.getVerdictRecordOwner()
 - somehow: good stuff is rendered.
