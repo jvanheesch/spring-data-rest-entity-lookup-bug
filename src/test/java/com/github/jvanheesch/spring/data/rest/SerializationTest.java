@@ -59,6 +59,11 @@ class SerializationTest {
                 json,
                 JSONCompareMode.LENIENT
         );
+    }
+
+    @Test
+    void givenAnStringOptionalOwner_whenDeserializing_thenNullLeadsToEmptyOptionalAndAbsentPropertyLeadsToNull() throws Exception {
+        String json = readJsonFromClassPath("StringOptionalOwner.json");
 
         StringOptionalOwner deserialized = objectMapper.readValue(json, StringOptionalOwner.class);
 
