@@ -26,7 +26,7 @@ givenAStringContainerOwner_whenDeserializing_thenNullLeadsToEmptyContainerAndAbs
 
 Issue:
 I now want to persist these StringContainer fields to my db (in-memory h2).
-(Side note: I actually want the StringContainer to be @Entity rather than @Embeddable. I noticed the same serialization error in both cases,
+(Side note: I actually want the StringContainer to be an @Entity rather than an @Embeddable. I noticed the same serialization error in both cases,
 and made a reproducer for the @Embeddable case, as it's closer to the working @Transient example - no need to add an @Id etc.)
 I created a new class StringContainerEmbeddedOwner.
 This class contains a single field of type StringContainerOwner.
