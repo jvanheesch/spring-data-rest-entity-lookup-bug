@@ -36,13 +36,13 @@ public class DebugController {
     @GetMapping("/debug")
     public String test() throws IOException {
         VerdictRecordOwner verdictRecordOwner = getVerdictRecordOwner();
-        ObjectMapper o = this.dataRestObjectMapper.configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true);
+        // ObjectMapper o = this.dataRestObjectMapper.configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true);
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator generator = this.objectMapper.getFactory().createGenerator(baos, encoding);
+        JsonGenerator generator = this.dataRestObjectMapper.getFactory().createGenerator(baos, encoding);
 
-        ObjectWriter objectWriter = this.objectMapper.writer();
+        ObjectWriter objectWriter = this.dataRestObjectMapper.writer();
         objectWriter.writeValue(generator, verdictRecordOwner);
 
         String string = new String(baos.toByteArray());
