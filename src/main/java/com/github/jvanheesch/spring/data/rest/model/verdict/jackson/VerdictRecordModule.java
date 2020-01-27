@@ -14,9 +14,6 @@ import com.fasterxml.jackson.databind.util.NameTransformer;
 
 import java.lang.reflect.Type;
 
-/**
- * TODO_JORIS: JAVADOC!
- */
 public class VerdictRecordModule extends SimpleModule {
     @Override
     public void setupModule(SetupContext context) {
@@ -45,45 +42,6 @@ public class VerdictRecordModule extends SimpleModule {
                 jsonSerializer = null;
             }
             return jsonSerializer;
-        }
-    }
-
-    static class VerdictRecordDeserializers extends Deserializers.Base {
-        @Override
-        public JsonDeserializer<?> findReferenceDeserializer(
-                ReferenceType refType,
-                DeserializationConfig config,
-                BeanDescription beanDesc,
-                TypeDeserializer contentTypeDeserializer,
-                JsonDeserializer<?> contentDeserializer
-        ) {
-            return refType.hasRawClass(VerdictRecord.class)
-                    ? new VerdictRecordDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
-                    : null;
-
-        }
-    }
-
-    static class VerdictRecordTypeModifier extends TypeModifier {
-        @Override
-        public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
-            if (type.getRawClass() == VerdictRecord.class) {
-                return ReferenceType.upgradeFrom(new VerdictRecordType(), new VerdictType());
-            } else {
-                return type;
-            }
-        }
-
-        private static class VerdictType extends SimpleType {
-            protected VerdictType() {
-                super(String.class);
-            }
-        }
-
-        private static class VerdictRecordType extends SimpleType {
-            protected VerdictRecordType() {
-                super(VerdictRecord.class);
-            }
         }
     }
 
@@ -144,6 +102,23 @@ public class VerdictRecordModule extends SimpleModule {
         }
     }
 
+
+    static class VerdictRecordDeserializers extends Deserializers.Base {
+        @Override
+        public JsonDeserializer<?> findReferenceDeserializer(
+                ReferenceType refType,
+                DeserializationConfig config,
+                BeanDescription beanDesc,
+                TypeDeserializer contentTypeDeserializer,
+                JsonDeserializer<?> contentDeserializer
+        ) {
+            return refType.hasRawClass(VerdictRecord.class)
+                    ? new VerdictRecordDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
+                    : null;
+
+        }
+    }
+
     static class VerdictRecordDeserializer extends ReferenceTypeDeserializer<VerdictRecord> {
         private static final long serialVersionUID = 1L;
 
@@ -180,6 +155,29 @@ public class VerdictRecordModule extends SimpleModule {
         @Override
         public VerdictRecord updateReference(VerdictRecord reference, Object contents) {
             return new VerdictRecord((String) contents);
+        }
+    }
+
+    static class VerdictRecordTypeModifier extends TypeModifier {
+        @Override
+        public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
+            if (type.getRawClass() == VerdictRecord.class) {
+                return ReferenceType.upgradeFrom(new VerdictRecordType(), new VerdictType());
+            } else {
+                return type;
+            }
+        }
+
+        private static class VerdictType extends SimpleType {
+            protected VerdictType() {
+                super(String.class);
+            }
+        }
+
+        private static class VerdictRecordType extends SimpleType {
+            protected VerdictRecordType() {
+                super(VerdictRecord.class);
+            }
         }
     }
 }
