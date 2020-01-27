@@ -7,7 +7,7 @@
 //import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 //import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 //import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
-//import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
+//import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecordOwner;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
 //import org.springframework.beans.factory.annotation.Autowired;

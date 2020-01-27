@@ -1,4 +1,4 @@
-package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
+package com.github.jvanheesch.spring.data.rest.model.verdict;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;

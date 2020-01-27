@@ -1,7 +1,7 @@
 package com.github.jvanheesch.spring.data.rest;
 
 import com.github.jvanheesch.spring.data.rest.model.Author;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
+import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;

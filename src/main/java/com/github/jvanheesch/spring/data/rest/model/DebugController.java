@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
+import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;

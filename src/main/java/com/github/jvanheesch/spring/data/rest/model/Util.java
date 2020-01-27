@@ -1,7 +1,7 @@
 //package com.github.jvanheesch.spring.data.rest.model;
 //
 //import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-//import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
+//import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecordOwner;
 //import com.github.jvanheesch.spring.data.rest.repo.VerdictRepository;
 //
 //import java.util.Optional;
