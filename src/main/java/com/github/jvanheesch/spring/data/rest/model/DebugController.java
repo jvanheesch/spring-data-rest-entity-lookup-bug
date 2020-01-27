@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
-import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
@@ -33,7 +31,7 @@ public class DebugController {
 
     @GetMapping("/debug")
     public String test() throws IOException {
-        VerdictRecordOwner verdictRecordOwner = getVerdictRecordOwner();
+        VerdictRecordOwner verdictRecordOwner = verdictRecordOwnerRepository.findById(1L).get();
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -45,14 +43,5 @@ public class DebugController {
         String string = new String(baos.toByteArray());
         System.out.println(string);
         return string;
-    }
-
-    private VerdictRecordOwner getVerdictRecordOwner() {
-        VerdictRecordOwner verdictRecordOwner = verdictRecordOwnerRepository.findById(1L).get();
-        verdictRecordOwner.setVerdictRecord1(new VerdictRecord(new Verdict("abc")));
-        verdictRecordOwner.setVerdictRecord2(new VerdictRecord());
-        verdictRecordOwner.setVerdictRecord3(null);
-
-        return verdictRecordOwner;
     }
 }
