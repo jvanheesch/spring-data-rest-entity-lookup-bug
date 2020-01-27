@@ -90,10 +90,14 @@ class SerializationTest {
                 json,
                 JSONCompareMode.LENIENT
         );
+    }
+
+    @Test
+    void givenAnStringContainerOwner_whenDeserializing_thenNullLeadsToEmptyContainerAndAbsentPropertyLeadsToNull() throws Exception {
+        String json = readJsonFromClassPath("StringContainerOwner.json");
 
         StringContainerOwner deserialized = objectMapper.readValue(json, StringContainerOwner.class);
 
-        System.out.println("");
         assertThat(deserialized.getStringContainer1().getValue())
                 .isEqualTo("abc");
         assertThat(deserialized.getStringContainer2().getValue())
