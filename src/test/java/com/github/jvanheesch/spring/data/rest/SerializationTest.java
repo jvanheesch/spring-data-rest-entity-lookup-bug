@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.StringContainer;
+import com.github.jvanheesch.spring.data.rest.model.StringContainerEmbeddedOwner;
 import com.github.jvanheesch.spring.data.rest.model.StringContainerOwner;
 import com.github.jvanheesch.spring.data.rest.model.StringOptionalOwner;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,6 +95,28 @@ class SerializationTest {
                 .isNull();
         assertThat(deserialized.getStringContainer3())
                 .isNull();
+    }
+
+    @Test
+    void givenAStringContainerEmbeddedOwner_whenSerializing_thenEmptyContainerLeadsToNullAndNullLeadsToAbsentProperty() throws Exception {
+        StringContainerEmbeddedOwner original = new StringContainerEmbeddedOwner();
+
+        original.setStringContainer1(new StringContainer("abc"));
+
+        // this line results in the following error:
+        // com.fasterxml.jackson.core.JsonGenerationException: Can not write a string, expecting field name (context: Object)
+        String json = serialize(objectMapper, original);
+
+        JSONAssert.assertEquals(
+                readJsonFromClassPath("StringContainerOwner.json"),
+                json,
+                JSONCompareMode.LENIENT
+        );
+
+        StringContainerOwner deserialized = objectMapper.readValue(json, StringContainerOwner.class);
+
+        assertThat(deserialized.getStringContainer1().getValue())
+                .isEqualTo("abc");
     }
 
     private String readJsonFromClassPath(String path) throws IOException {

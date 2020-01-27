@@ -1,5 +1,8 @@
 package com.github.jvanheesch.spring.data.rest.model;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class StringContainer {
     private String value;
 
