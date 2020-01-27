@@ -3,18 +3,14 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-import javax.persistence.*;
-import java.util.Optional;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class VerdictRecordOwner {
     @Id
     private Long id;
-
-    private String string1;
-    private String string2;
-    private String string3;
 
     public Long getId() {
         return id;
@@ -47,29 +43,5 @@ public class VerdictRecordOwner {
 
     public VerdictRecord getVerdictRecord4() {
         return null;
-    }
-
-    public Optional<String> getString1() {
-        return Optional.ofNullable("abc");
-    }
-
-    public void setString1(String string1) {
-        this.string1 = string1;
-    }
-
-    public Optional<String> getString2() {
-        return Optional.ofNullable(string2);
-    }
-
-    public void setString2(String string2) {
-        this.string2 = string2;
-    }
-
-    public Optional<String> getString3() {
-        return null;
-    }
-
-    public void setString3(String string3) {
-        this.string3 = string3;
     }
 }

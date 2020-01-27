@@ -104,11 +104,6 @@ public class VerdictRecordModule extends SimpleModule {
     static class VerdictRecordSerializer extends ReferenceTypeSerializer<VerdictRecord> {
         private static final long serialVersionUID = 1L;
 
-//        @Override
-//        public boolean isUnwrappingSerializer() {
-//            return true;
-//        }
-
         protected VerdictRecordSerializer(
                 ReferenceType fullType,
                 boolean staticTyping,
@@ -201,12 +196,9 @@ public class VerdictRecordModule extends SimpleModule {
         }
     }
 
-    // TODO_JORIS: fix @JsonUnwrapped shit.
     public static class VerdictSerializer extends JsonSerializer<Verdict> {
         @Override
         public void serialize(Verdict value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-//            gen.writeFieldName("verdict");
-//            gen.writeString("abc");
             if ("compliant".equals(value.getString())) {
                 gen.writeNumber(1L);
             } else if ("other".equals(value.getString())) {
