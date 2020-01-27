@@ -34,7 +34,7 @@ public class DebugController {
 
     @GetMapping("/debug")
     public String test() throws IOException {
-        VerdictRecordOwner verdictRecordOwner = Util.getVerdictRecordOwner(verdictRepository);
+        VerdictRecordOwner verdictRecordOwner = verdictRecordOwnerRepository.findById(1L).get();
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

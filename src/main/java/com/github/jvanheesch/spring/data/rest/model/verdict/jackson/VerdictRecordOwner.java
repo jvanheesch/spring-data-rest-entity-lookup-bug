@@ -3,9 +3,7 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Optional;
 
 @Entity
@@ -18,7 +16,7 @@ public class VerdictRecordOwner {
     private Optional<Verdict> verdictRecord2;
     @Transient
     private Optional<Verdict> verdictRecord3;
-    @Transient
+    @OneToOne(fetch = FetchType.EAGER)
     private Verdict verdict;
 
     public Long getId() {
