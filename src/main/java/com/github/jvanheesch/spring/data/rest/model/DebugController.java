@@ -10,7 +10,6 @@ import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecor
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,17 +19,38 @@ import java.util.Optional;
 
 @RestController
 public class DebugController {
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
+    private final ObjectMapper dataRestObjectMapper;
     private final VerdictRecordOwnerRepository verdictRecordOwnerRepository;
 
-    public DebugController(VerdictRecordOwnerRepository verdictRecordOwnerRepository, RepositoryRestMvcConfiguration repositoryRestMvcConfiguration) {
+    public DebugController(
+            ObjectMapper objectMapper,
+            VerdictRecordOwnerRepository verdictRecordOwnerRepository,
+            RepositoryRestMvcConfiguration repositoryRestMvcConfiguration
+    ) {
+        this.objectMapper = objectMapper;
         this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
-        this.objectMapper = repositoryRestMvcConfiguration.halObjectMapper();
+        this.dataRestObjectMapper = repositoryRestMvcConfiguration.halObjectMapper();
     }
 
     @GetMapping("/debug")
     public String test() throws IOException {
-        // this.objectMapper = this.objectMapper.configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true);
+        VerdictRecordOwner verdictRecordOwner = getVerdictRecordOwner();
+        ObjectMapper o = this.dataRestObjectMapper.configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true);
+
+        JsonEncoding encoding = JsonEncoding.UTF8;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JsonGenerator generator = this.objectMapper.getFactory().createGenerator(baos, encoding);
+
+        ObjectWriter objectWriter = this.objectMapper.writer();
+        objectWriter.writeValue(generator, verdictRecordOwner);
+
+        String string = new String(baos.toByteArray());
+        System.out.println(string);
+        return string;
+    }
+
+    private VerdictRecordOwner getVerdictRecordOwner() {
         VerdictRecordOwner verdictRecordOwner = verdictRecordOwnerRepository.findAll().iterator().next();
 
         Verdict verdict = new Verdict();
@@ -49,15 +69,6 @@ public class DebugController {
         verdictRecordOwner.setVerdictRecord3(Optional.ofNullable(verdictRecord3));
         verdictRecordOwner.setVerdictRecord4(null);
 
-        JsonEncoding encoding = JsonEncoding.UTF8;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator generator = this.objectMapper.getFactory().createGenerator(baos, encoding);
-
-        ObjectWriter objectWriter = this.objectMapper.writer();
-        objectWriter.writeValue(generator, verdictRecordOwner);
-
-        String string = new String(baos.toByteArray());
-        System.out.println(string);
-        return string;
+        return verdictRecordOwner;
     }
 }
