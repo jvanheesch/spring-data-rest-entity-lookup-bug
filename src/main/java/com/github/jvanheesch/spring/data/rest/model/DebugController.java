@@ -35,7 +35,7 @@ public class DebugController {
 
     @GetMapping("/debug")
     public String test() throws IOException {
-        VerdictRecordOwner verdictRecordOwner = getVerdictRecordOwner();
+        VerdictRecordOwner verdictRecordOwner = Util.getVerdictRecordOwner();
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -47,27 +47,5 @@ public class DebugController {
         String string = new String(baos.toByteArray());
         System.out.println(string);
         return string;
-    }
-
-    private VerdictRecordOwner getVerdictRecordOwner() {
-        VerdictRecordOwner verdictRecordOwner = verdictRecordOwnerRepository.findAll().iterator().next();
-
-        Verdict verdict = new Verdict();
-        verdict.setString("Compliant");
-        VerdictRecord verdictRecord1 = new VerdictRecord();
-        verdictRecord1.setId(1L);
-        verdictRecord1.setVerdict(verdict);
-
-        VerdictRecord verdictRecord2 = new VerdictRecord();
-        verdictRecord2.setId(2L);
-
-        VerdictRecord verdictRecord3 = null;
-
-        verdictRecordOwner.setVerdictRecord1(Optional.ofNullable(verdictRecord1));
-        verdictRecordOwner.setVerdictRecord2(Optional.ofNullable(verdictRecord2));
-        verdictRecordOwner.setVerdictRecord3(Optional.ofNullable(verdictRecord3));
-        verdictRecordOwner.setVerdictRecord4(null);
-
-        return verdictRecordOwner;
     }
 }
