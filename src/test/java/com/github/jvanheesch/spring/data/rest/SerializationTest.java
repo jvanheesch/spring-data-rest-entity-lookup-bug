@@ -43,7 +43,7 @@ class SerializationTest {
     }
 
     @Test
-    void givenAnStringOptionalOwner_whenSerializing_thenEmptyOptionalLeadsToNullAndNullLeadsToAbsentProperty() throws Exception {
+    void givenAStringOptionalOwner_whenSerializing_thenEmptyOptionalLeadsToNullAndNullLeadsToAbsentProperty() throws Exception {
         StringOptionalOwner original = new StringOptionalOwner();
 
         original.setStringOptional1(Optional.of("abc"));
@@ -62,7 +62,7 @@ class SerializationTest {
     }
 
     @Test
-    void givenAnStringOptionalOwner_whenDeserializing_thenNullLeadsToEmptyOptionalAndAbsentPropertyLeadsToNull() throws Exception {
+    void givenAStringOptionalOwner_whenDeserializing_thenNullLeadsToEmptyOptionalAndAbsentPropertyLeadsToNull() throws Exception {
         String json = readJsonFromClassPath("StringOptionalOwner.json");
 
         StringOptionalOwner deserialized = objectMapper.readValue(json, StringOptionalOwner.class);
@@ -93,7 +93,7 @@ class SerializationTest {
     }
 
     @Test
-    void givenAnStringContainerOwner_whenDeserializing_thenNullLeadsToEmptyContainerAndAbsentPropertyLeadsToNull() throws Exception {
+    void givenAStringContainerOwner_whenDeserializing_thenNullLeadsToEmptyContainerAndAbsentPropertyLeadsToNull() throws Exception {
         String json = readJsonFromClassPath("StringContainerOwner.json");
 
         StringContainerOwner deserialized = objectMapper.readValue(json, StringContainerOwner.class);
@@ -121,6 +121,16 @@ class SerializationTest {
 //                json,
 //                JSONCompareMode.LENIENT
 //        );
+
+        StringContainerOwner deserialized = objectMapper.readValue(json, StringContainerOwner.class);
+
+        assertThat(deserialized.getStringContainer1().getValue())
+                .isEqualTo("abc");
+    }
+
+    @Test
+    void givenAStringContainerEmbeddedOwner_whenDeserializing_thenNullLeadsToEmptyContainerAndAbsentPropertyLeadsToNull() throws Exception {
+        String json = readJsonFromClassPath("StringContainerOwner.json");
 
         StringContainerOwner deserialized = objectMapper.readValue(json, StringContainerOwner.class);
 
