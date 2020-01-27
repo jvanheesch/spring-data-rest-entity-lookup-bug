@@ -19,7 +19,7 @@ public class VerdictRecordOwner {
     @Transient
     private Optional<Verdict> verdictRecord3;
     @Transient
-    private Optional<Verdict> verdictRecord4;
+    private Verdict verdict;
 
     public Long getId() {
         return id;
@@ -54,5 +54,13 @@ public class VerdictRecordOwner {
 
     public void setVerdict3(Optional<Verdict> verdictRecord3) {
         this.verdictRecord3 = verdictRecord3;
+    }
+
+    public Verdict getVerdict() {
+        return verdict;
+    }
+
+    public void setVerdict(Verdict verdict) {
+        this.verdict = verdict;
     }
 }
