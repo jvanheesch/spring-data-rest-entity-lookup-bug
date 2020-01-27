@@ -2,21 +2,20 @@ Changing a property from @Transient to @Embedded breaks serialization (deseriali
 
 Please see reference url for reproducer with unit tests.
 
-This is a rather complicated/specific issue, so I'll start by explaining the context & original goal.
-I will often reference the reproducer'' code in this yadda yadda.
+This is a rather complicated issue, so this explanation will clarify the reproducer.
+I'll start by explaining the context & the original goal.
 
-Jackson's Jdk8Module contains support for serializing objects of type Optional<T>.
-By default, the presence of
-private Optional<String> someOptional
-in some object, will result in the following in json: [todo rephrase]
-someOptional: "x", when someOptional wraps the value "x"
-someOptional: null, when someOptional is the empty Optional
-property absent in json, when someOptional is null.
-Yadda yadda and vice versa.
+Context:
+Jackson's Jdk8Module contains support for (de)serializing objects of type Optional<T>.
+By default, <code>Optional<String> someOptional</code> in java will correspond with one of three things in json:
+- someOptional: "x", when someOptional is an Optional containing the String "x"
+- someOptional: null, when someOptional is the empty Optional
+- absent in json (= undefined), when someOptional is null.
 This behavior is demonstrated by the following two tests in the reproducer:
 givenAStringOptionalOwner_whenSerializing_thenEmptyOptionalLeadsToNullAndNullLeadsToAbsentProperty
 givenAStringOptionalOwner_whenDeserializing_thenNullLeadsToEmptyOptionalAndAbsentPropertyLeadsToNull
 
+Goal:
 I wanted this exact behavior for my own container/wrapper class (*).
 I defined a simple class StringContainer, which is basically a wrapper around a String.
 I created a jackson Module (StringContainerModule) based on jackson's Jdk8Module.
@@ -35,8 +34,13 @@ This causes the serialization to fail,
 
 
 
-
-
-
-https://github.com/FasterXML/jackson-databind/issues/578
-
+(*)
+The reason I wanted this behavior is as follows:
+In our crud application, we have our DomainObject which has many nullable fields.
+Business rules dictate that many fields are only applicable/meaningful under certain circumstances.
+Under any other circumstances, users should not be able submit values for these inapplicable fields.
+"Not applicable" and "blank" are different concepts.
+Often, both are modelled as "NULL" in the domain, but I was wondering if I could model them separately.
+Javascript supports this natively with undefined vs null, so I wanted to see if I could design my resources this way.
+To accomplish this, StringContainer should become an Entity rather than an Embeddable.
+However, I noticed that I get the same error with both Embeddable and Entity.
