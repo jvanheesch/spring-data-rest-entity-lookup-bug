@@ -7,12 +7,21 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecordOwner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.http.HttpOutputMessage;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.stream.Collectors;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -26,7 +35,27 @@ class FinalSerializationTest {
     @Test
     void testSerialization() throws Exception {
         ObjectMapper objectMapper = repositoryRestMvcConfiguration.halObjectMapper();
-        VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
+        String json = serialize(objectMapper);
+
+        JSONAssert.assertEquals(
+                readJsonFromClassPath("resource.json"),
+                json,
+                JSONCompareMode.LENIENT
+        );
+    }
+
+    private String readJsonFromClassPath(String path) throws IOException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new ClassPathResource(path).getInputStream()))) {
+            return br.lines().collect(Collectors.joining(System.lineSeparator()));
+        }
+    }
+
+    /**
+     * Based on {@link org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter#writeInternal(Object, Type, HttpOutputMessage)}.
+     */
+    private String serialize(ObjectMapper objectMapper) throws IOException {
+        VerdictRecordOwner verdictRecordOwner = getVerdictRecordOwner();
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -36,6 +65,10 @@ class FinalSerializationTest {
         objectWriter.writeValue(generator, verdictRecordOwner);
 
         byte[] bytes = baos.toByteArray();
-        System.out.println(new String(bytes));
+        return new String(bytes);
+    }
+
+    private VerdictRecordOwner getVerdictRecordOwner() {
+        return new VerdictRecordOwner();
     }
 }
