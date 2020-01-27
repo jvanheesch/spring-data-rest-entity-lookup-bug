@@ -45,8 +45,7 @@ class FinalSerializationTest {
     }
 
     private String readJsonFromClassPath(String path) throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                new ClassPathResource(path).getInputStream()))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new ClassPathResource(path).getInputStream()))) {
             return br.lines().collect(Collectors.joining(System.lineSeparator()));
         }
     }
