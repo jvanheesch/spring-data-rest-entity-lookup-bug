@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 
+// TODO_JORIS: de case met embedded is beter voor jira ticket denk ik - kleinere change!
 @Entity
 public class VerdictRecordOwner {
     @Id
