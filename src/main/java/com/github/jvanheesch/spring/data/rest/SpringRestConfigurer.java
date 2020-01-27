@@ -17,13 +17,4 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
     public void configureJacksonObjectMapper(ObjectMapper objectMapper) {
         objectMapper.registerModule(new VerdictRecordModule());
     }
-
-    // TODO_JORIS: nagaan of dat wel klopt ...
-//    /**
-//     * https://github.com/spring-projects/spring-data-rest/blob/master/src/main/asciidoc/custom-jackson-deserialization.adoc
-//     */
-//    @Bean
-//    public VerdictRecordModule myJdk8Module() {
-//        return new VerdictRecordModule();
-//    }
 }
