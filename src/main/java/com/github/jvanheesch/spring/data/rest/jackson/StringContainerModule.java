@@ -1,4 +1,4 @@
-package com.github.jvanheesch.spring.data.rest.model.jackson;
+package com.github.jvanheesch.spring.data.rest.jackson;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.Deserializers;
