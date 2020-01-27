@@ -15,16 +15,13 @@ import java.io.IOException;
 
 @RestController
 public class DebugController {
-    private final ObjectMapper objectMapper;
     private final ObjectMapper dataRestObjectMapper;
     private final VerdictRecordOwnerRepository verdictRecordOwnerRepository;
 
     public DebugController(
-            ObjectMapper objectMapper,
             VerdictRecordOwnerRepository verdictRecordOwnerRepository,
             RepositoryRestMvcConfiguration repositoryRestMvcConfiguration
     ) {
-        this.objectMapper = objectMapper;
         this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
         this.dataRestObjectMapper = repositoryRestMvcConfiguration.halObjectMapper();
     }
