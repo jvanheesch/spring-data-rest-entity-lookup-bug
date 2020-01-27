@@ -2,13 +2,8 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-
-@Embeddable
 public class VerdictRecord {
     private Long id;
-    @Embedded
     private Verdict verdict;
 
     public VerdictRecord() {

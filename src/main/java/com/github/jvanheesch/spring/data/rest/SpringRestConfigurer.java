@@ -1,10 +1,6 @@
 package com.github.jvanheesch.spring.data.rest;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordModule;
 import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
@@ -22,16 +18,16 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
         config.disableDefaultExposure();
     }
 
-    @Override
-    public void configureJacksonObjectMapper(ObjectMapper objectMapper) {
-        objectMapper.registerModule(new VerdictRecordModule());
-    }
+//    @Override
+//    public void configureJacksonObjectMapper(ObjectMapper objectMapper) {
+//        objectMapper.registerModule(new VerdictRecordModule());
+//    }
 
-    /**
-     * https://github.com/spring-projects/spring-data-rest/blob/master/src/main/asciidoc/custom-jackson-deserialization.adoc
-     */
-    @Bean
-    public VerdictRecordModule myJdk8Module() {
-        return new VerdictRecordModule();
-    }
+//    /**
+//     * https://github.com/spring-projects/spring-data-rest/blob/master/src/main/asciidoc/custom-jackson-deserialization.adoc
+//     */
+//    @Bean
+//    public VerdictRecordModule myJdk8Module() {
+//        return new VerdictRecordModule();
+//    }
 }
