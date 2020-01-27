@@ -18,6 +18,9 @@ public class VerdictRecordOwner {
     private Verdict verdictRecord3;
     @OneToOne(fetch = FetchType.EAGER)
     private Verdict verdict;
+    // TODO_JORIS lazy
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private VerdictRecord verdictRecord;
 
     public Long getId() {
         return id;
@@ -60,5 +63,13 @@ public class VerdictRecordOwner {
 
     public void setVerdict(Verdict verdict) {
         this.verdict = verdict;
+    }
+
+    public VerdictRecord getVerdictRecord() {
+        return verdictRecord;
+    }
+
+    public void setVerdictRecord(VerdictRecord verdictRecord) {
+        this.verdictRecord = verdictRecord;
     }
 }

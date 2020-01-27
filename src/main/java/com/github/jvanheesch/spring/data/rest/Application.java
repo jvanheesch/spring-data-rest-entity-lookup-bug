@@ -54,17 +54,22 @@ public class Application {
         nonCompliant.setString("Non-compliant");
         verdictRepository.save(nonCompliant);
 
+        VerdictRecord verdictRecord = new VerdictRecord();
+        verdictRecord.setId(1L);
+        verdictRecord.setVerdict(compliant);
+        verdictRecordRepository.save(verdictRecord);
+
+//        VerdictRecord verdictRecord2 = new VerdictRecord();
+//        verdictRecord.setId(2L);
+//        verdictRecord.setVerdict(nonCompliant);
+
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setId(1L);
         verdictRecordOwner.setVerdict(compliant);
         verdictRecordOwner.setVerdict1(compliant);
         verdictRecordOwner.setVerdict1(nonCompliant);
+//        verdictRecordOwner.setVerdictRecord(verdictRecord2);
         verdictRecordOwnerRepository.save(verdictRecordOwner);
-
-        VerdictRecord verdictRecord = new VerdictRecord();
-        verdictRecord.setId(1L);
-        verdictRecord.setVerdict(compliant);
-        verdictRecordRepository.save(verdictRecord);
 
 
 //        VerdictRecord verdictRecord1 = new VerdictRecord();
