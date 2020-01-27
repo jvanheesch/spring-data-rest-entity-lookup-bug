@@ -1,12 +1,11 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Optional;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class VerdictRecordOwner {
     @Id
@@ -20,7 +19,7 @@ public class VerdictRecordOwner {
         this.id = id;
     }
 
-    public VerdictRecord getVerdictRecord1() {
+    public Optional<VerdictRecord> getVerdictRecord1() {
         Verdict verdict = new Verdict();
         verdict.setString("compliant");
 
@@ -28,20 +27,21 @@ public class VerdictRecordOwner {
         verdictRecord1.setId(1L);
         verdictRecord1.setVerdict(verdict);
 
-        return verdictRecord1;
+        return Optional.ofNullable(verdictRecord1);
     }
 
-    public VerdictRecord getVerdictRecord2() {
+    public Optional<VerdictRecord> getVerdictRecord2() {
         VerdictRecord verdictRecord2 = new VerdictRecord();
         verdictRecord2.setId(2L);
-        return verdictRecord2;
+        return Optional.ofNullable(verdictRecord2);
     }
 
-    public VerdictRecord getVerdictRecord3() {
-        return new VerdictRecord();
+    public Optional<VerdictRecord> getVerdictRecord3() {
+        return Optional.empty();
     }
 
-    public VerdictRecord getVerdictRecord4() {
+    // TODO_JORIS: evil ofc
+    public Optional<VerdictRecord> getVerdictRecord4() {
         return null;
     }
 }
