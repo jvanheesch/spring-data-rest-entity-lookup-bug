@@ -1,6 +1,7 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
 import javax.persistence.*;
@@ -18,6 +19,8 @@ public class VerdictRecordOwner {
     private Verdict verdictRecord3;
     @OneToOne(fetch = FetchType.EAGER)
     private Verdict verdict;
+    // TODO_JORIS: unwrapping loses field name 'verdictRecord', so wont work with multiple records ...!
+     // @JsonUnwrapped
     // TODO_JORIS lazy
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private VerdictRecord verdictRecord;

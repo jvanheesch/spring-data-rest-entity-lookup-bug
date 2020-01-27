@@ -151,7 +151,19 @@ public class VerdictRecordModule extends SimpleModule {
         // hier moeten we 3x inkomen, once for each verdictrecord !! gebeurt in test, maar slechts 2x in SDR !!!!!
         @Override
         protected Object _getReferencedIfPresent(VerdictRecord value) {
-            return value.getVerdict();
+            return new StringContainer("leuter");
+        }
+    }
+
+    private static class StringContainer {
+        private final String verdict;
+
+        private StringContainer(String verdict) {
+            this.verdict = verdict;
+        }
+
+        public String getVerdict() {
+            return verdict;
         }
     }
 
