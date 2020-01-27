@@ -53,8 +53,8 @@ public class Application {
         VerdictRecordOwner verdictRecordOwner = new VerdictRecordOwner();
         verdictRecordOwner.setId(1L);
         verdictRecordOwner.setVerdictRecord1(filledInVerdictRecord);
-        verdictRecordOwner.setVerdictRecord2(blankVerdictRecord);
-        verdictRecordOwner.setVerdictRecord3(nullVerdictRecord);
+//        verdictRecordOwner.setVerdictRecord2(blankVerdictRecord);
+//        verdictRecordOwner.setVerdictRecord3(nullVerdictRecord);
 
         verdictRecordOwnerRepository.save(verdictRecordOwner);
     }
