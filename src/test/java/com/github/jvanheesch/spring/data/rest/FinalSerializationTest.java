@@ -42,6 +42,10 @@ class FinalSerializationTest {
                 json,
                 JSONCompareMode.LENIENT
         );
+
+        VerdictRecordOwner deserialized = objectMapper.readValue(json, VerdictRecordOwner.class);
+
+        System.out.println("todo");
     }
 
     private String readJsonFromClassPath(String path) throws IOException {
