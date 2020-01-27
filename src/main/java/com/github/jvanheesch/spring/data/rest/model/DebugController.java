@@ -36,7 +36,6 @@ public class DebugController {
     @GetMapping("/debug")
     public String test() throws IOException {
         VerdictRecordOwner verdictRecordOwner = getVerdictRecordOwner();
-        // ObjectMapper o = this.dataRestObjectMapper.configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true);
 
         JsonEncoding encoding = JsonEncoding.UTF8;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
