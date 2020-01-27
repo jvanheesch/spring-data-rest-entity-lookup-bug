@@ -93,6 +93,7 @@ public class StringContainerModule extends SimpleModule {
             return stringContainer.getValue() != null;
         }
 
+        // TODO_JORIS compare with jackson
         @Override
         protected Object _getReferenced(StringContainer stringContainer) {
             // TODO_JORIS: why does this not work??? see optional.
