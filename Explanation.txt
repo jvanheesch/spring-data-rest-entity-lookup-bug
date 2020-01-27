@@ -38,6 +38,7 @@ This causes the serialization to fail, as demonstrated by
 
 
 
+TL;DR van reproducer: copied code, added @Embeddable to MyOptional -> broken.
 
 
 (*)
