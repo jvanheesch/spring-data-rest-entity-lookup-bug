@@ -119,7 +119,6 @@ public class VerdictRecordModule extends SimpleModule {
             return refType.hasRawClass(VerdictRecord.class)
                     ? new VerdictRecordDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
                     : null;
-
         }
     }
 
