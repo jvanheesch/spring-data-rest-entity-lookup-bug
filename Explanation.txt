@@ -1,5 +1,5 @@
 TODO_JORIS: this reproducer might be way easier if I copy and the jackson classes, and make them embedded ...
-
+EDIT: nope: want dan module met zelfde name yadda yadda
 Incorrect serialization - changing a property from @Transient to @Embedded breaks serialization (deserialization still works as expected)
 
 This is a rather complicated issue, so this explanation will clarify the reproducer (see reference url).
