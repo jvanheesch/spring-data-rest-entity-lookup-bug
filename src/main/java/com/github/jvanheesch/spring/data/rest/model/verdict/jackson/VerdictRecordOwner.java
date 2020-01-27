@@ -29,7 +29,7 @@ public class VerdictRecordOwner {
         this.id = id;
     }
 
-    // @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<VerdictRecord> getVerdictRecord1() {
         return verdictRecord1;
     }
@@ -38,7 +38,7 @@ public class VerdictRecordOwner {
         this.verdictRecord1 = verdictRecord1;
     }
 
-    // @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<VerdictRecord> getVerdictRecord2() {
         return verdictRecord2;
     }
@@ -47,7 +47,7 @@ public class VerdictRecordOwner {
         this.verdictRecord2 = verdictRecord2;
     }
 
-    // @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<VerdictRecord> getVerdictRecord3() {
         return verdictRecord3;
     }
@@ -56,7 +56,7 @@ public class VerdictRecordOwner {
         this.verdictRecord3 = verdictRecord3;
     }
 
-    // @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Optional<VerdictRecord> getVerdictRecord4() {
         return verdictRecord4;
     }
