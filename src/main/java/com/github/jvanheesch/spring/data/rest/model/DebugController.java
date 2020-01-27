@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordOwner;
 import com.github.jvanheesch.spring.data.rest.repo.VerdictRecordOwnerRepository;
-import com.github.jvanheesch.spring.data.rest.repo.VerdictRepository;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,17 +18,15 @@ public class DebugController {
     private final ObjectMapper objectMapper;
     private final ObjectMapper dataRestObjectMapper;
     private final VerdictRecordOwnerRepository verdictRecordOwnerRepository;
-    private final VerdictRepository verdictRepository;
 
     public DebugController(
             ObjectMapper objectMapper,
             VerdictRecordOwnerRepository verdictRecordOwnerRepository,
-            RepositoryRestMvcConfiguration repositoryRestMvcConfiguration,
-            VerdictRepository verdictRepository) {
+            RepositoryRestMvcConfiguration repositoryRestMvcConfiguration
+    ) {
         this.objectMapper = objectMapper;
         this.verdictRecordOwnerRepository = verdictRecordOwnerRepository;
         this.dataRestObjectMapper = repositoryRestMvcConfiguration.halObjectMapper();
-        this.verdictRepository = verdictRepository;
     }
 
     @GetMapping("/debug")

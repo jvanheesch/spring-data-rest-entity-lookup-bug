@@ -1,24 +1,17 @@
 package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.deser.ValueInstantiator;
 import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
 import com.fasterxml.jackson.databind.util.NameTransformer;
-import com.github.jvanheesch.spring.data.rest.model.verdict.Verdict;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 
 /**
@@ -30,36 +23,6 @@ public class VerdictRecordModule extends SimpleModule {
         context.addSerializers(new VerdictRecordSerializers());
         context.addDeserializers(new VerdictRecordDeserializers());
         context.addTypeModifier(new VerdictRecordTypeModifier());
-
-        SimpleSerializers serializers = new SimpleSerializers();
-        // SimpleDeserializers deserializers = new SimpleDeserializers();
-
-        serializers.addSerializer(StringContainer.class, new StringContainerSerializer());
-//        deserializers.addDeserializer(VerdictRecord.class, new VerdictRecordDeserializer(verdictRepository));
-
-        context.addSerializers(serializers);
-//        context.addDeserializers(deserializers);
-
-//        SimpleSerializers serializers = new SimpleSerializers();
-//        SimpleDeserializers deserializers = new SimpleDeserializers();
-//        serializers.addSerializer(Verdict.class, new VerdictSerializer());
-//        deserializers.addDeserializer(Verdict.class, new VerdictDeserializer());
-//        context.addSerializers(serializers);
-//        context.addDeserializers(deserializers);
-    }
-    // TODO_JORIS: fix @JsonUnwrapped shit.
-    public static class StringContainerSerializer extends JsonSerializer<StringContainer> {
-//        @Override
-//        public boolean isUnwrappingSerializer() {
-//            return true;
-//        }
-
-        @Override
-        public void serialize(StringContainer value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-//            gen.writeStartObject();
-            gen.writeStringField("verdict", "tadaa");
-//            gen.writeEndObject();
-        }
     }
 
     static class VerdictRecordSerializers extends Serializers.Base {
@@ -113,7 +76,7 @@ public class VerdictRecordModule extends SimpleModule {
 
         private static class VerdictType extends SimpleType {
             protected VerdictType() {
-                super(Verdict.class);
+                super(String.class);
             }
         }
 
@@ -164,32 +127,20 @@ public class VerdictRecordModule extends SimpleModule {
         }
 
         @Override
-        protected boolean _isValuePresent(VerdictRecord value) {
-            return value.getVerdict() != null;
+        protected boolean _isValuePresent(VerdictRecord verdictRecord) {
+            return verdictRecord.getValue() != null;
         }
 
         @Override
-        protected Object _getReferenced(VerdictRecord value) {
+        protected Object _getReferenced(VerdictRecord verdictRecord) {
             // TODO_JORIS: why does this not work??? see optional.
-            return "abc";
+            return verdictRecord.getValue();
         }
 
         // hier moeten we 3x inkomen, once for each verdictrecord !! gebeurt in test, maar slechts 2x in SDR !!!!!
         @Override
-        protected Object _getReferencedIfPresent(VerdictRecord value) {
-            return new StringContainer("leuter");
-        }
-    }
-
-    public static class StringContainer {
-        private final String verdict;
-
-        private StringContainer(String verdict) {
-            this.verdict = verdict;
-        }
-
-        public String getVerdict() {
-            return verdict;
+        protected Object _getReferencedIfPresent(VerdictRecord verdictRecord) {
+            return verdictRecord.getValue();
         }
     }
 
@@ -218,48 +169,17 @@ public class VerdictRecordModule extends SimpleModule {
 
         @Override
         public VerdictRecord referenceValue(Object contents) {
-            return new VerdictRecord((Verdict) contents);
+            return new VerdictRecord((String) contents);
         }
 
         @Override
         public Object getReferenced(VerdictRecord reference) {
-            return reference.getVerdict();
+            return reference.getValue();
         }
 
         @Override
         public VerdictRecord updateReference(VerdictRecord reference, Object contents) {
-            return new VerdictRecord((Verdict) contents);
-        }
-    }
-
-    public static class VerdictSerializer extends JsonSerializer<Verdict> {
-        @Override
-        public void serialize(Verdict value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            if ("compliant".equals(value.getString())) {
-                gen.writeNumber(1L);
-            } else if ("other".equals(value.getString())) {
-                gen.writeNumber(2L);
-            } else {
-                gen.writeNull();
-            }
-        }
-    }
-
-    public static class VerdictDeserializer extends StdDeserializer<Verdict> {
-        public VerdictDeserializer() {
-            super(Verdict.class);
-        }
-
-        @Override
-        public Verdict deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-            JsonNode node = jp.getCodec().readTree(jp);
-            Long verdictId = node.longValue();
-
-            if (Long.valueOf(1L).equals(verdictId)) {
-                return new Verdict("Compliant");
-            } else {
-                return new Verdict();
-            }
+            return new VerdictRecord((String) contents);
         }
     }
 }
