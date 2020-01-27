@@ -3,19 +3,17 @@ package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class VerdictRecordOwner {
     @Id
     private Long id;
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord1;
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord2;
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private VerdictRecord verdictRecord3;
 
     public Long getId() {
