@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
 import com.fasterxml.jackson.databind.util.NameTransformer;
+import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
 
 import java.lang.reflect.Type;
 

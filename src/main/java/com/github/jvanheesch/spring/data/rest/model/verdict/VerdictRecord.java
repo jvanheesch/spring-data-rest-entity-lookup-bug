@@ -1,4 +1,4 @@
-package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
+package com.github.jvanheesch.spring.data.rest.model.verdict;
 
 public class VerdictRecord {
     private String value;
