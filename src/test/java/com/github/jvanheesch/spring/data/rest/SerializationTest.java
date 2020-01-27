@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.github.jvanheesch.spring.data.rest.model.StringContainer;
+import com.github.jvanheesch.spring.data.rest.model.StringContainerOwner;
 import com.github.jvanheesch.spring.data.rest.model.StringOptionalOwner;
-import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecordOwner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class FinalSerializationTest {
+class SerializationTest {
     @Autowired
     private RepositoryRestMvcConfiguration repositoryRestMvcConfiguration;
     private ObjectMapper objectMapper;
@@ -68,24 +69,31 @@ class FinalSerializationTest {
                 .isNull();
     }
 
-
-    // TODO_JORIS: het is fine dat cases 2 en 3 hetzelfde behavior hebben, denk ik.
-    // immers: enkel de eerste komt voor, en die moet leidden tot null in json.
-    // 4th mag nt in json staan!
     @Test
-    void testSerialization() throws Exception {
-        ObjectMapper objectMapper = repositoryRestMvcConfiguration.halObjectMapper();
-        String json = serialize(objectMapper, new VerdictRecordOwner());
+    void givenAStringContainerOwner_whenSerializing_thenEmptyContainerLeadsToNullAndNullLeadsToAbsentProperty() throws Exception {
+        StringContainerOwner original = new StringContainerOwner();
+
+        original.setStringContainer1(new StringContainer("abc"));
+        original.setStringContainer2(new StringContainer());
+        original.setStringContainer3(null);
+
+        String json = serialize(objectMapper, original);
 
         JSONAssert.assertEquals(
-                readJsonFromClassPath("resource.json"),
+                readJsonFromClassPath("StringContainerOwner.json"),
                 json,
                 JSONCompareMode.LENIENT
         );
 
-        VerdictRecordOwner deserialized = objectMapper.readValue(json, VerdictRecordOwner.class);
+        StringContainerOwner deserialized = objectMapper.readValue(json, StringContainerOwner.class);
 
-        System.out.println("todo");
+        System.out.println("");
+        assertThat(deserialized.getStringContainer1().getValue())
+                .isEqualTo("abc");
+        assertThat(deserialized.getStringContainer2().getValue())
+                .isNull();
+        assertThat(deserialized.getStringContainer3())
+                .isNull();
     }
 
     private String readJsonFromClassPath(String path) throws IOException {
@@ -107,9 +115,5 @@ class FinalSerializationTest {
 
         byte[] bytes = baos.toByteArray();
         return new String(bytes);
-    }
-
-    private VerdictRecordOwner getVerdictRecordOwner() {
-        return new VerdictRecordOwner();
     }
 }

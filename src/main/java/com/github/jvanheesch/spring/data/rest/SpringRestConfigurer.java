@@ -1,7 +1,7 @@
 package com.github.jvanheesch.spring.data.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jvanheesch.spring.data.rest.model.verdict.jackson.VerdictRecordModule;
+import com.github.jvanheesch.spring.data.rest.model.jackson.StringContainerModule;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
@@ -15,6 +15,6 @@ public class SpringRestConfigurer implements RepositoryRestConfigurer {
 
     @Override
     public void configureJacksonObjectMapper(ObjectMapper objectMapper) {
-        objectMapper.registerModule(new VerdictRecordModule());
+        objectMapper.registerModule(new StringContainerModule());
     }
 }

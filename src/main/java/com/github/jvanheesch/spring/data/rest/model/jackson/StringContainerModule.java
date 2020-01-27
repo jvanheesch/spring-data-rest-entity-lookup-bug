@@ -1,4 +1,4 @@
-package com.github.jvanheesch.spring.data.rest.model.verdict.jackson;
+package com.github.jvanheesch.spring.data.rest.model.jackson;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.Deserializers;
@@ -11,22 +11,22 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.*;
 import com.fasterxml.jackson.databind.util.NameTransformer;
-import com.github.jvanheesch.spring.data.rest.model.verdict.VerdictRecord;
+import com.github.jvanheesch.spring.data.rest.model.StringContainer;
 
 import java.lang.reflect.Type;
 
 /**
  * Based on {@link com.fasterxml.jackson.datatype.jdk8.Jdk8Module}.
  */
-public class VerdictRecordModule extends SimpleModule {
+public class StringContainerModule extends SimpleModule {
     @Override
     public void setupModule(SetupContext context) {
-        context.addSerializers(new VerdictRecordSerializers());
-        context.addDeserializers(new VerdictRecordDeserializers());
-        context.addTypeModifier(new VerdictRecordTypeModifier());
+        context.addSerializers(new StringContainerSerializers());
+        context.addDeserializers(new StringContainerDeserializers());
+        context.addTypeModifier(new StringContainerTypeModifier());
     }
 
-    static class VerdictRecordSerializers extends Serializers.Base {
+    static class StringContainerSerializers extends Serializers.Base {
         @Override
         public JsonSerializer<?> findReferenceSerializer(
                 SerializationConfig config,
@@ -36,8 +36,8 @@ public class VerdictRecordModule extends SimpleModule {
                 JsonSerializer<Object> contentValueSerializer
         ) {
             JsonSerializer<?> jsonSerializer;
-            if (VerdictRecord.class.isAssignableFrom(refType.getRawClass())) {
-                jsonSerializer = new VerdictRecordSerializer(
+            if (StringContainer.class.isAssignableFrom(refType.getRawClass())) {
+                jsonSerializer = new StringContainerSerializer(
                         refType,
                         (contentTypeSerializer == null) && config.isEnabled(MapperFeature.USE_STATIC_TYPING),
                         contentTypeSerializer,
@@ -49,10 +49,10 @@ public class VerdictRecordModule extends SimpleModule {
         }
     }
 
-    static class VerdictRecordSerializer extends ReferenceTypeSerializer<VerdictRecord> {
+    static class StringContainerSerializer extends ReferenceTypeSerializer<StringContainer> {
         private static final long serialVersionUID = 1L;
 
-        protected VerdictRecordSerializer(
+        protected StringContainerSerializer(
                 ReferenceType fullType,
                 boolean staticTyping,
                 TypeSerializer vts,
@@ -61,8 +61,8 @@ public class VerdictRecordModule extends SimpleModule {
             super(fullType, staticTyping, vts, ser);
         }
 
-        protected VerdictRecordSerializer(
-                VerdictRecordSerializer base,
+        protected StringContainerSerializer(
+                StringContainerSerializer base,
                 BeanProperty property,
                 TypeSerializer vts,
                 JsonSerializer<?> valueSer,
@@ -74,40 +74,39 @@ public class VerdictRecordModule extends SimpleModule {
         }
 
         @Override
-        protected ReferenceTypeSerializer<VerdictRecord> withResolved(
+        protected ReferenceTypeSerializer<StringContainer> withResolved(
                 BeanProperty prop,
                 TypeSerializer vts,
                 JsonSerializer<?> valueSer,
                 NameTransformer unwrapper
         ) {
-            return new VerdictRecordSerializer(this, prop, vts, valueSer, unwrapper, _suppressableValue, _suppressNulls);
+            return new StringContainerSerializer(this, prop, vts, valueSer, unwrapper, _suppressableValue, _suppressNulls);
         }
 
         @Override
-        public ReferenceTypeSerializer<VerdictRecord> withContentInclusion(Object suppressableValue, boolean suppressNulls) {
-            return new VerdictRecordSerializer(this, _property, _valueTypeSerializer, _valueSerializer, _unwrapper, suppressableValue, suppressNulls);
+        public ReferenceTypeSerializer<StringContainer> withContentInclusion(Object suppressableValue, boolean suppressNulls) {
+            return new StringContainerSerializer(this, _property, _valueTypeSerializer, _valueSerializer, _unwrapper, suppressableValue, suppressNulls);
         }
 
         @Override
-        protected boolean _isValuePresent(VerdictRecord verdictRecord) {
-            return verdictRecord.getValue() != null;
+        protected boolean _isValuePresent(StringContainer stringContainer) {
+            return stringContainer.getValue() != null;
         }
 
         @Override
-        protected Object _getReferenced(VerdictRecord verdictRecord) {
+        protected Object _getReferenced(StringContainer stringContainer) {
             // TODO_JORIS: why does this not work??? see optional.
-            return verdictRecord.getValue();
+            return stringContainer.getValue();
         }
 
-        // hier moeten we 3x inkomen, once for each verdictrecord !! gebeurt in test, maar slechts 2x in SDR !!!!!
         @Override
-        protected Object _getReferencedIfPresent(VerdictRecord verdictRecord) {
-            return verdictRecord.getValue();
+        protected Object _getReferencedIfPresent(StringContainer stringContainer) {
+            return stringContainer.getValue();
         }
     }
 
 
-    static class VerdictRecordDeserializers extends Deserializers.Base {
+    static class StringContainerDeserializers extends Deserializers.Base {
         @Override
         public JsonDeserializer<?> findReferenceDeserializer(
                 ReferenceType refType,
@@ -116,16 +115,16 @@ public class VerdictRecordModule extends SimpleModule {
                 TypeDeserializer contentTypeDeserializer,
                 JsonDeserializer<?> contentDeserializer
         ) {
-            return refType.hasRawClass(VerdictRecord.class)
-                    ? new VerdictRecordDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
+            return refType.hasRawClass(StringContainer.class)
+                    ? new StringContainerDeserializer(refType, null, contentTypeDeserializer, contentDeserializer)
                     : null;
         }
     }
 
-    static class VerdictRecordDeserializer extends ReferenceTypeDeserializer<VerdictRecord> {
+    static class StringContainerDeserializer extends ReferenceTypeDeserializer<StringContainer> {
         private static final long serialVersionUID = 1L;
 
-        public VerdictRecordDeserializer(
+        public StringContainerDeserializer(
                 JavaType fullType,
                 ValueInstantiator inst,
                 TypeDeserializer typeDeser,
@@ -135,37 +134,37 @@ public class VerdictRecordModule extends SimpleModule {
         }
 
         @Override
-        public VerdictRecordDeserializer withResolved(TypeDeserializer typeDeser, JsonDeserializer<?> valueDeser) {
-            return new VerdictRecordDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
+        public StringContainerDeserializer withResolved(TypeDeserializer typeDeser, JsonDeserializer<?> valueDeser) {
+            return new StringContainerDeserializer(_fullType, _valueInstantiator, typeDeser, valueDeser);
         }
 
         // TODO_JORIS snappen
         @Override
-        public VerdictRecord getNullValue(DeserializationContext ctxt) {
-            return new VerdictRecord();
+        public StringContainer getNullValue(DeserializationContext ctxt) {
+            return new StringContainer();
         }
 
         @Override
-        public VerdictRecord referenceValue(Object contents) {
-            return new VerdictRecord((String) contents);
+        public StringContainer referenceValue(Object contents) {
+            return new StringContainer((String) contents);
         }
 
         @Override
-        public Object getReferenced(VerdictRecord reference) {
+        public Object getReferenced(StringContainer reference) {
             return reference.getValue();
         }
 
         @Override
-        public VerdictRecord updateReference(VerdictRecord reference, Object contents) {
-            return new VerdictRecord((String) contents);
+        public StringContainer updateReference(StringContainer reference, Object contents) {
+            return new StringContainer((String) contents);
         }
     }
 
-    static class VerdictRecordTypeModifier extends TypeModifier {
+    static class StringContainerTypeModifier extends TypeModifier {
         @Override
         public JavaType modifyType(JavaType type, Type jdkType, TypeBindings bindings, TypeFactory typeFactory) {
-            if (type.getRawClass() == VerdictRecord.class) {
-                return ReferenceType.upgradeFrom(new VerdictRecordType(), new VerdictType());
+            if (type.getRawClass() == StringContainer.class) {
+                return ReferenceType.upgradeFrom(new StringContainerType(), new VerdictType());
             } else {
                 return type;
             }
@@ -177,9 +176,9 @@ public class VerdictRecordModule extends SimpleModule {
             }
         }
 
-        private static class VerdictRecordType extends SimpleType {
-            protected VerdictRecordType() {
-                super(VerdictRecord.class);
+        private static class StringContainerType extends SimpleType {
+            protected StringContainerType() {
+                super(StringContainer.class);
             }
         }
     }

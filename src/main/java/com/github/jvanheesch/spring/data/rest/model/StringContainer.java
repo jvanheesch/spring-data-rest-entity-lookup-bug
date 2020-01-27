@@ -1,13 +1,13 @@
-package com.github.jvanheesch.spring.data.rest.model.verdict;
+package com.github.jvanheesch.spring.data.rest.model;
 
-public class VerdictRecord {
+public class StringContainer {
     private String value;
 
-    public VerdictRecord(String value) {
+    public StringContainer(String value) {
         this.value = value;
     }
 
-    public VerdictRecord() {
+    public StringContainer() {
     }
 
     public String getValue() {
