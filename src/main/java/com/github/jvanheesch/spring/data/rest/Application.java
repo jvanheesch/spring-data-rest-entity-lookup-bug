@@ -1,8 +1,9 @@
 package com.github.jvanheesch.spring.data.rest;
 
-import com.github.jvanheesch.spring.data.rest.model.Author;
-import com.github.jvanheesch.spring.data.rest.repo.AuthorRepository;
-import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
+import com.github.jvanheesch.spring.data.rest.model.EutrDocument;
+import com.github.jvanheesch.spring.data.rest.model.WoodComposition;
+import com.github.jvanheesch.spring.data.rest.repo.EutrDocumentRepository;
+import com.github.jvanheesch.spring.data.rest.repo.WoodCompositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,9 +16,9 @@ import javax.annotation.PostConstruct;
 public class Application {
 
     @Autowired
-    BookRepository bookRepository;
+    EutrDocumentRepository eutrDocumentRepository;
     @Autowired
-    AuthorRepository authorRepository;
+    WoodCompositionRepository woodCompositionRepository;
 
     @Bean
     public CommonsRequestLoggingFilter requestLoggingFilter() {
@@ -33,8 +34,11 @@ public class Application {
 
     @PostConstruct
     public void init() {
-        Author author = new Author();
-        author.setName("Oliver");
-        authorRepository.save(author);
+        EutrDocument eutrDocument = new EutrDocument();
+        WoodComposition  woodComposition= new WoodComposition();
+        woodComposition.setName("wc1");
+        eutrDocument.setWoodComposition(woodComposition);
+        eutrDocument.setTitle("eutr1");
+        this.eutrDocumentRepository.save(eutrDocument);
     }
 }

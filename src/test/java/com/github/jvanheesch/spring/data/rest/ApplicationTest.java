@@ -1,7 +1,7 @@
 package com.github.jvanheesch.spring.data.rest;
 
-import com.github.jvanheesch.spring.data.rest.model.Book;
-import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
+import com.github.jvanheesch.spring.data.rest.model.EutrDocument;
+import com.github.jvanheesch.spring.data.rest.repo.EutrDocumentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ class ApplicationTest {
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
-    private BookRepository bookRepository;
+    private EutrDocumentRepository eutrDocumentRepository;
 
     @Test
     void whenBookAuthorGetterIsAnnotated_thenEntityLookupNoLongerWorks() {
@@ -37,9 +37,9 @@ class ApplicationTest {
         RequestEntity<String> request = new RequestEntity<>(json, headers, HttpMethod.POST, URI.create("http://localhost:" + port + "/books"));
         ResponseEntity<Void> bookResponseEntity = restTemplate.exchange(request, Void.class);
 
-        Book book = bookRepository.findById(2L).get();
+        EutrDocument eutrDocument = eutrDocumentRepository.findById(2L).get();
 
-        assertThat(book.getAuthor())
+        assertThat(eutrDocument.getWoodComposition())
                 .isNotNull();
     }
 }
