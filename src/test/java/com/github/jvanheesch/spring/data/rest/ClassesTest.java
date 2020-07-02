@@ -19,8 +19,8 @@ class ClassesTest {
 
     @Autowired
     private ServiceA serviceA;
-    @Autowired
-    private ServiceB serviceB;
+//    @Autowired
+//    private ServiceB serviceB;
 
     @Test
     void whenBookAuthorGetterIsAnnotated_thenEntityLookupNoLongerWorks() {

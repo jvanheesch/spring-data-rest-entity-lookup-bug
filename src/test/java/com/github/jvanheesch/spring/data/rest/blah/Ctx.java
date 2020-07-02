@@ -11,7 +11,8 @@ import org.springframework.context.annotation.FilterType;
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
                 value = ServiceA.class
-        )
+        ),
+        useDefaultFilters = false
 )
 public class Ctx {
 }
