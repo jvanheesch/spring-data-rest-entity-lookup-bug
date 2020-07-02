@@ -18,7 +18,7 @@ public class BookService {
     @Transactional
     public Book saveOld(Book book) {
         Book saved = bookRepository.save(book);
-        if (book.getTitle().equals("exception")) {
+        if ("exception".equals(book.getTitle())) {
             throw new RuntimeException();
         }
         return saved;
