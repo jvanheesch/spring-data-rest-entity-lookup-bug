@@ -1,16 +1,16 @@
 package com.github.jvanheesch.spring.data.rest.blah;
 
-import com.github.jvanheesch.spring.data.rest.pck.ServiceA;
+import com.github.jvanheesch.spring.data.rest.pck.BookRepository2;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
-        basePackageClasses = ServiceA.class,
+        basePackageClasses = BookRepository2.class,
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
-                value = ServiceA.class
+                value = BookRepository2.class
         ),
         useDefaultFilters = false
 )
