@@ -16,6 +16,8 @@ public class MyRepositoryRestController {
         this.bookService = bookService;
     }
 
+    // testen met postman toont dat dit werkt ...
+    // mss is de beste integratie manier toch een sbtest?
     @PostMapping("/books")
     public ResponseEntity<PersistentEntityResource> createNonSwissOnlyDocument(@RequestBody  Book book, PersistentEntityResourceAssembler assembler) {
         return ResponseEntity.ok(assembler.toModel(this.bookService.saveOld(book)));
