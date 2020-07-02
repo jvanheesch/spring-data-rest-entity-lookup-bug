@@ -1,83 +1,58 @@
 package com.github.jvanheesch.spring.data.rest.mems;
 
-import com.github.jvanheesch.spring.data.rest.Application;
-import com.github.jvanheesch.spring.data.rest.BookService;
 import com.github.jvanheesch.spring.data.rest.model.Book;
+import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.*;
 
+import java.net.URI;
 import java.util.List;
 
-import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
+import static org.assertj.core.api.Assertions.assertThat;
 
-// lol idiot, bypassing service etc.
-// TODO_JORIS: in huidige setup wordt db altijd proper opgekuist!
-// TODO: testen individueel lijken ok, dus t is een issue van unittestcleanup
-// @SpringBootTest heeft pcs rollback-on-exception, maar dan weer niet rollback-tss-tests ... ... TODO!
-//  @Transactional jhelpt niet ... ??
-// https://stackoverflow.com/a/46818347/1939921
-@SpringBootTest
-@ContextConfiguration(classes = Ctx.class)
-class ClassesTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class ApplicationTest {
+    @LocalServerPort
+    private int port;
 
     @Autowired
-    private BookService bookService;
+    private TestRestTemplate restTemplate;
+    @Autowired
+    private BookRepository bookRepository;
 
     @Test
-    void test1() {
-        try {
-            Book book = new Book();
-            book.setTitle("leuter");
-            bookService.saveOld(book);
-        } catch (Exception e) {
-            System.out.println("ClassesTest.test1");
-        }
-        List<Book> all = bookService.findAll();
-        System.out.println(all);
+    void abc() {
+        String json = "{\"title\":\"exception\"}";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        RequestEntity<String> request = new RequestEntity<>(json, headers, HttpMethod.POST, URI.create("http://localhost:" + port + "/books"));
+        ResponseEntity<Void> bookResponseEntity = restTemplate.exchange(request, Void.class);
+
+        List<Book> all = bookRepository.findAll();
+
+        assertThat(all)
+                .isEmpty();
     }
 
     @Test
-    void test2() {
-        List<Book> all;
-        try {
-            Book book = new Book();
-            book.setTitle("exception");
-            all = bookService.findAll();
-            bookService.saveOld(book);
-        } catch (Exception e) {
-            System.out.println("ClassesTest.test2");
-        }
-        all = bookService.findAll();
-        System.out.println(all);
-    }
+    void def() {
+        String json = "{\"title\":\"ok\"}";
 
-    @Test
-    void test3() {
-        try {
-            Book book = new Book();
-            book.setTitle("exception");
-            bookService.saveOld(book);
-        } catch (Exception e) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-            System.out.println("ClassesTest.test3");
-        }
-        List<Book> all = bookService.findAll();
-        System.out.println(all);
-    }
+        RequestEntity<String> request = new RequestEntity<>(json, headers, HttpMethod.POST, URI.create("http://localhost:" + port + "/books"));
+        ResponseEntity<Void> bookResponseEntity = restTemplate.exchange(request, Void.class);
 
-    @Configuration
-    @ComponentScan(
-            basePackageClasses = Application.class
-//            includeFilters = @ComponentScan.Filter(
-//                    type = FilterType.REGEX,
-//                    pattern = "com\\.github\\.jvanheesch\\.spring\\.data\\.rest\\.pck\\.BookRepository2"
-//            ),
-//            useDefaultFilters = false
-    )
-    static class Ctx {
+        List<Book> all = bookRepository.findAll();
+
+        assertThat(all)
+                .hasSize(1);
     }
 }
