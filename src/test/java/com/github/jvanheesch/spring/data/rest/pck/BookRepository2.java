@@ -2,8 +2,8 @@ package com.github.jvanheesch.spring.data.rest.pck;
 
 import com.github.jvanheesch.spring.data.rest.model.Book;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 public interface BookRepository2 extends CrudRepository<Book, Long> {
 }
