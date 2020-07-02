@@ -15,6 +15,7 @@ import java.util.List;
 
 import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
 
+// lol idiot, bypassing service etc.
 // TODO_JORIS: in huidige setup wordt db altijd proper opgekuist!
 // TODO: testen individueel lijken ok, dus t is een issue van unittestcleanup
 @DataJpaTest
