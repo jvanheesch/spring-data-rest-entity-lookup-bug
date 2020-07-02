@@ -3,9 +3,10 @@ package com.github.jvanheesch.spring.data.rest.mems;
 import com.github.jvanheesch.spring.data.rest.Application;
 import com.github.jvanheesch.spring.data.rest.BookService;
 import com.github.jvanheesch.spring.data.rest.model.Book;
+import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,39 +14,40 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.List;
 
 import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // TODO: testen individueel lijken ok, dus t is een issue van unittestcleanup
-@SpringBootTest
+@DataJpaTest
 @ContextConfiguration(classes = Ctx.class)
 class ClassesTest {
 
     @Autowired
-    private BookService bookService;
+    private BookRepository bookService;
 
     @Test
-    void old_is_broken() {
-        assertThatThrownBy(() -> {
-            Book book = new Book();
-            book.setTitle("exception");
-            bookService.saveOld(book);
-        }).isInstanceOf(Exception.class);
-
+    void test1() {
+        Book book = new Book();
+        book.setTitle("exception");
+        bookService.save(book);
         List<Book> all = bookService.findAll();
-        assertThat(all).hasSize(0);
+        System.out.println(all);
     }
 
     @Test
-    void new_is_fixed() {
-        assertThatThrownBy(() -> {
-            Book book = new Book();
-            book.setTitle("exception");
-            bookService.saveNew(book);
-        }).isInstanceOf(Exception.class);
-
+    void test2() {
+        Book book = new Book();
+        book.setTitle("exception");
+        bookService.save(book);
         List<Book> all = bookService.findAll();
-        assertThat(all).hasSize(1);
+        System.out.println(all);
+    }
+
+    @Test
+    void test3() {
+        Book book = new Book();
+        book.setTitle("exception");
+        bookService.save(book);
+        List<Book> all = bookService.findAll();
+        System.out.println(all);
     }
 
     @Configuration
