@@ -19,6 +19,7 @@ import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
 // TODO: testen individueel lijken ok, dus t is een issue van unittestcleanup
 // @SpringBootTest heeft pcs rollback-on-exception, maar dan weer niet rollback-tss-tests ... ... TODO!
 //  @Transactional jhelpt niet ... ??
+// https://stackoverflow.com/a/46818347/1939921
 @SpringBootTest
 @ContextConfiguration(classes = Ctx.class)
 class ClassesTest {
