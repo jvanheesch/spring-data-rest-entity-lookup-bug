@@ -1,9 +1,8 @@
-package com.github.jvanheesch.spring.data.rest.mems;
+package com.github.jvanheesch.spring.data.rest.exception;
 
 import com.github.jvanheesch.spring.data.rest.Application;
 import com.github.jvanheesch.spring.data.rest.BookService;
 import com.github.jvanheesch.spring.data.rest.model.Book;
-import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -13,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
 
-import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
+import static com.github.jvanheesch.spring.data.rest.exception.ClassesTest.Ctx;
 
 // lol idiot, bypassing service etc.
 // TODO_JORIS: in huidige setup wordt db altijd proper opgekuist!
@@ -23,31 +22,44 @@ import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
 class ClassesTest {
 
     @Autowired
-    private BookRepository bookService;
+    private BookService bookService;
 
     @Test
     void test1() {
-        Book book = new Book();
-        book.setTitle("mems");
-        bookService.save(book);
+        try {
+            Book book = new Book();
+            book.setTitle("exception");
+            bookService.saveOld(book);
+        } catch (Exception e) {
+            System.out.println("ClassesTest.test1");
+        }
         List<Book> all = bookService.findAll();
         System.out.println(all);
     }
 
     @Test
     void test2() {
-        Book book = new Book();
-        book.setTitle("mems");
-        bookService.save(book);
+        try {
+            Book book = new Book();
+            book.setTitle("exception");
+            bookService.saveOld(book);
+        } catch (Exception e) {
+            System.out.println("ClassesTest.test2");
+        }
         List<Book> all = bookService.findAll();
         System.out.println(all);
     }
 
     @Test
     void test3() {
-        Book book = new Book();
-        book.setTitle("mems");
-        bookService.save(book);
+        try {
+            Book book = new Book();
+            book.setTitle("exception");
+            bookService.saveOld(book);
+        } catch (Exception e) {
+
+            System.out.println("ClassesTest.test3");
+        }
         List<Book> all = bookService.findAll();
         System.out.println(all);
     }
