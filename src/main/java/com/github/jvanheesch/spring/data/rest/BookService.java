@@ -29,7 +29,7 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
-    @Transactional
+    @Transactional(value= Transactional.TxType.REQUIRES_NEW)
     Book saveInNewTransaction(Book book) {
         return bookRepository.save(book);
     }
