@@ -27,7 +27,7 @@ class ClassesTest {
     @Test
     void test1() {
         Book book = new Book();
-        book.setTitle("exception");
+        book.setTitle("mems");
         bookService.save(book);
         List<Book> all = bookService.findAll();
         System.out.println(all);
@@ -36,7 +36,7 @@ class ClassesTest {
     @Test
     void test2() {
         Book book = new Book();
-        book.setTitle("exception");
+        book.setTitle("mems");
         bookService.save(book);
         List<Book> all = bookService.findAll();
         System.out.println(all);
@@ -45,7 +45,7 @@ class ClassesTest {
     @Test
     void test3() {
         Book book = new Book();
-        book.setTitle("exception");
+        book.setTitle("mems");
         bookService.save(book);
         List<Book> all = bookService.findAll();
         System.out.println(all);
