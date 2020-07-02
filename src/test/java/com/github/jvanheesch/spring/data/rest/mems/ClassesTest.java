@@ -16,6 +16,7 @@ import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+// TODO: testen individueel lijken ok, dus t is een issue van unittestcleanup
 @SpringBootTest
 @ContextConfiguration(classes = Ctx.class)
 class ClassesTest {
