@@ -6,16 +6,19 @@ import com.github.jvanheesch.spring.data.rest.model.Book;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
 
 import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest(classes = Ctx.class)
+@SpringBootTest
+@ContextConfiguration(classes = Ctx.class)
 class ClassesTest {
 
     @Autowired
