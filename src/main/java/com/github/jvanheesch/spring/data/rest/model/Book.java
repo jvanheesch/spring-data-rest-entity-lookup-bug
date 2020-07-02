@@ -1,8 +1,9 @@
 package com.github.jvanheesch.spring.data.rest.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Book {
@@ -10,8 +11,6 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    @ManyToOne
-    private Author author;
 
     public Long getId() {
         return id;
@@ -27,14 +26,5 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @JsonProperty("broken")
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
     }
 }
