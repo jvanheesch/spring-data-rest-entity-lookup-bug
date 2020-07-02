@@ -1,23 +1,23 @@
-package com.github.jvanheesch.spring.data.rest.exception;
+package com.github.jvanheesch.spring.data.rest.mems;
 
 import com.github.jvanheesch.spring.data.rest.Application;
 import com.github.jvanheesch.spring.data.rest.BookService;
 import com.github.jvanheesch.spring.data.rest.model.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
 
-import static com.github.jvanheesch.spring.data.rest.exception.ClassesTest.Ctx;
+import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
 
 // lol idiot, bypassing service etc.
 // TODO_JORIS: in huidige setup wordt db altijd proper opgekuist!
 // TODO: testen individueel lijken ok, dus t is een issue van unittestcleanup
-@DataJpaTest
+@SpringBootTest
 @ContextConfiguration(classes = Ctx.class)
 class ClassesTest {
 
@@ -28,7 +28,7 @@ class ClassesTest {
     void test1() {
         try {
             Book book = new Book();
-            book.setTitle("exception");
+            book.setTitle("leuter");
             bookService.saveOld(book);
         } catch (Exception e) {
             System.out.println("ClassesTest.test1");
