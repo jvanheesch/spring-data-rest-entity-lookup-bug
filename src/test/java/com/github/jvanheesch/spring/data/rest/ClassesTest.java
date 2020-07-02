@@ -36,9 +36,8 @@ class ClassesTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-         TestTransaction.end();
 
-        List<Book> all = bookRepository.findAll();
+        List<Book> all = bookService.findAll();
         System.out.println(all.size());
     }
 
