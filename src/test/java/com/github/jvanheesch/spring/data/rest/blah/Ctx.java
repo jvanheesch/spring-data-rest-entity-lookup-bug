@@ -9,8 +9,8 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(
         basePackageClasses = BookRepository2.class,
         includeFilters = @ComponentScan.Filter(
-                type = FilterType.ASSIGNABLE_TYPE,
-                value = BookRepository2.class
+                type = FilterType.REGEX,
+                pattern = "com\\.github\\.jvanheesch\\.spring\\.data\\.rest\\.pck\\.BookRepository2"
         ),
         useDefaultFilters = false
 )
