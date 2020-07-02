@@ -37,6 +37,7 @@ class ClassesTest {
             System.out.println(e);
         }
 
+        // TODO_JORIS: hier zou ik dus 0 results verwachten ... !!
         List<Book> all = bookService.findAll();
         System.out.println(all.size());
     }
