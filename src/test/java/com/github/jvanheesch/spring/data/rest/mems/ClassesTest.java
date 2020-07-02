@@ -39,14 +39,16 @@ class ClassesTest {
 
     @Test
     void test2() {
+        List<Book> all;
         try {
             Book book = new Book();
             book.setTitle("exception");
+            all = bookService.findAll();
             bookService.saveOld(book);
         } catch (Exception e) {
             System.out.println("ClassesTest.test2");
         }
-        List<Book> all = bookService.findAll();
+        all = bookService.findAll();
         System.out.println(all);
     }
 
