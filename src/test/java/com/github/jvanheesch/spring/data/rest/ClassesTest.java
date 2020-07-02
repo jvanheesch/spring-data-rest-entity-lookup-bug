@@ -26,7 +26,7 @@ class ClassesTest {
     void whenBookAuthorGetterIsAnnotated_thenEntityLookupNoLongerWorks() {
         try {
             Book book = new Book();
-            book.setTitle("exception");
+            book.setTitle("x");
             bookService.save(book);
         } catch (Exception e) {
             System.out.println(e);
