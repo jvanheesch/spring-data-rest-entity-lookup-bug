@@ -29,7 +29,7 @@ class ClassesTest {
         try {
             Book book = new Book();
             book.setTitle("exception");
-            bookService.saveNew(book);
+            bookService.saveOld(book);
         } catch (Exception e) {
             System.out.println("ClassesTest.test1");
         }
@@ -42,7 +42,7 @@ class ClassesTest {
         try {
             Book book = new Book();
             book.setTitle("exception");
-            bookService.saveNew(book);
+            bookService.saveOld(book);
         } catch (Exception e) {
             System.out.println("ClassesTest.test2");
         }
@@ -55,7 +55,7 @@ class ClassesTest {
         try {
             Book book = new Book();
             book.setTitle("exception");
-            bookService.saveNew(book);
+            bookService.saveOld(book);
         } catch (Exception e) {
 
             System.out.println("ClassesTest.test3");
