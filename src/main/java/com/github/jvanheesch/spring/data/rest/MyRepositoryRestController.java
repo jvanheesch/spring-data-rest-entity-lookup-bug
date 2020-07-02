@@ -20,6 +20,6 @@ public class MyRepositoryRestController {
     // mss is de beste integratie manier toch een sbtest?
     @PostMapping("/books")
     public ResponseEntity<PersistentEntityResource> createNonSwissOnlyDocument(@RequestBody  Book book, PersistentEntityResourceAssembler assembler) {
-        return ResponseEntity.ok(assembler.toModel(this.bookService.saveOld(book)));
+        return ResponseEntity.ok(assembler.toModel(this.bookService.saveNew(book)));
     }
 }

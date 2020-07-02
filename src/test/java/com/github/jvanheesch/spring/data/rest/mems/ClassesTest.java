@@ -37,7 +37,7 @@ class ApplicationTest {
         List<Book> all = bookRepository.findAll();
 
         assertThat(all)
-                .isEmpty();
+                .hasSize(1);
     }
 
     @Test
@@ -52,6 +52,7 @@ class ApplicationTest {
 
         List<Book> all = bookRepository.findAll();
 
+        // size 2 omdat db nt gecleared wordt
         assertThat(all)
                 .hasSize(1);
     }
