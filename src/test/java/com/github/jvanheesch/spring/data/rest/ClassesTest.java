@@ -4,20 +4,15 @@ import com.github.jvanheesch.spring.data.rest.model.Book;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.transaction.TestTransaction;
 
 import java.util.List;
 
 import static com.github.jvanheesch.spring.data.rest.ClassesTest.Ctx;
 
-@DataJpaTest
-@EnableAutoConfiguration
-@ContextConfiguration(classes = Ctx.class)
+@SpringBootTest(classes = Ctx.class)
 class ClassesTest {
 
     @Autowired
