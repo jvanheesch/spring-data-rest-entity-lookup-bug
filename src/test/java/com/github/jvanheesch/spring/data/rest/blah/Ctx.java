@@ -8,7 +8,7 @@ import org.springframework.context.annotation.FilterType;
 @Configuration
 @ComponentScan(
         basePackageClasses = ServiceA.class,
-        excludeFilters = @ComponentScan.Filter(
+        includeFilters = @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
                 value = ServiceA.class
         )

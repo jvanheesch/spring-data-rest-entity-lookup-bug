@@ -17,8 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = Ctx.class)
 class ClassesTest {
 
-//    @Autowired
-//    private ServiceA serviceA;
+    @Autowired
+    private ServiceA serviceA;
     @Autowired
     private ServiceB serviceB;
 
