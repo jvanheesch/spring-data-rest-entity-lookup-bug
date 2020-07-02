@@ -1,5 +1,7 @@
-package com.github.jvanheesch.spring.data.rest;
+package com.github.jvanheesch.spring.data.rest.mems;
 
+import com.github.jvanheesch.spring.data.rest.Application;
+import com.github.jvanheesch.spring.data.rest.BookService;
 import com.github.jvanheesch.spring.data.rest.model.Book;
 import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import org.junit.jupiter.api.Test;
@@ -10,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-import static com.github.jvanheesch.spring.data.rest.ClassesTest.Ctx;
+import static com.github.jvanheesch.spring.data.rest.mems.ClassesTest.Ctx;
 
 @SpringBootTest(classes = Ctx.class)
 class ClassesTest {
