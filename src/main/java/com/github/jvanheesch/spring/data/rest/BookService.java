@@ -16,10 +16,15 @@ public class BookService {
 
     @Transactional
     public Book save(Book book) {
-        Book saved = bookRepository.save(book);
-        if (book.getTitle().equals("exception")) {
-            throw new RuntimeException();
-        }
+        Book saved = saveInNewTransaction(book);
+//        if (book.getTitle().equals("exception")) {
+//            throw new RuntimeException();
+//        }
         return saved;
+    }
+
+    @Transactional()
+    Book saveInNewTransaction(Book book) {
+        return bookRepository.save(book);
     }
 }

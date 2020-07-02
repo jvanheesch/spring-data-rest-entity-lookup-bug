@@ -1,7 +1,7 @@
 package com.github.jvanheesch.spring.data.rest;
 
 import com.github.jvanheesch.spring.data.rest.model.Book;
-import com.github.jvanheesch.spring.data.rest.pck.BookRepository2;
+import com.github.jvanheesch.spring.data.rest.repo.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -21,7 +21,7 @@ import static com.github.jvanheesch.spring.data.rest.ClassesTest.Ctx;
 class ClassesTest {
 
     @Autowired
-    private BookRepository2 bookRepository2;
+    private BookRepository bookRepository;
     @Autowired
     private BookService bookService;
 //    @Autowired
@@ -36,9 +36,9 @@ class ClassesTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        boolean flaggedForRollback = TestTransaction.isFlaggedForRollback();
+         TestTransaction.end();
 
-        List<Book> all = bookRepository2.findAll();
+        List<Book> all = bookRepository.findAll();
         System.out.println(all.size());
     }
 
